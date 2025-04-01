@@ -6,9 +6,9 @@
   padding: 0.5rem 2rem;
   color: white;
   height: 80px;
-  width: 100%; /* Changed from 100vw to 100% */
+  width: 100%;
   box-sizing: border-box;
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 1000;
   margin: 0;
@@ -19,16 +19,16 @@
 .logo-container {
   display: flex;
   align-items: center;
-  gap: 15px; /* Increased gap between logo and text */
+  gap: 15px;
 }
 
 .logo-image {
-  height: 40px; /* Increased from 40px */
+  height: 40px;
   width: auto;
 }
 
 .logo-text {
-  font-size: 1.5rem; /* Increased from 1.2rem */
+  font-size: 1.5rem;
   font-weight: bold;
 }
 

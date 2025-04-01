@@ -4,6 +4,10 @@ import Footer from '../components/Footer.jsx';
 import calendarImage from '../assets/calendar.svg';
 import '../styles/Home.css';
 
+const handleLoginClick = () => {
+  window.location.href = '/login';
+};
+
 const Home = () => {
   return (
     <div className="home">
@@ -18,7 +22,7 @@ const Home = () => {
             <p>
               Holiday Hub gives your team complete visibility, accurate reporting, and an easy way to manage everything in one central hub. When it comes to holiday tracking, <br /> we don't just do it all; <strong>we do it best</strong>.
             </p>
-            <button className="cta-btn">Let's Get Started</button>
+            <button className="cta-btn" onClick={handleLoginClick}>Let's Get Started</button>
           </div>
           <div className="hero-image">
             <img src={calendarImage} alt="Calendar illustration" />

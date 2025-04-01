@@ -1,3 +1,15 @@
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
 .home {
   display: flex;
   flex-direction: column;
@@ -9,15 +21,14 @@
 }
 
 .hero {
-  flex: 1;
-  padding: 0;
-  margin: 0;
-  min-height: calc(100vh - 80px); /* Subtract header height */
+  height: 100vh; /* Changed to exact 100vh */
+  width: 100%;
   display: flex;
   align-items: center;
   position: relative;
-  overflow: visible; /* Changed to visible to show full image */
-  width: 100%;
+  overflow: visible;
+  padding-top: 80px; /* Account for header height */
+  box-sizing: border-box;
 }
 
 .hero-content {
@@ -30,7 +41,7 @@
   padding: 2rem;
   gap: 2rem;
   position: relative;
-  overflow: visible; /* Changed to visible to show full image */
+  overflow: visible;
 }
 
 .hero-text {
@@ -96,6 +107,11 @@
   transform: scale(1.1);
   transition: transform 0.3s ease;
   object-fit: contain;
+  animation: float 6s ease-in-out infinite;
+}
+
+.hero-image img:hover {
+  animation-play-state: paused;
 }
 
 /* Services Section */
@@ -221,15 +237,17 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .hero {
-    min-height: calc(100vh - 80px); /* Maintain full height on mobile */
-    overflow-x: hidden; /* Hide overflow on mobile */
+    height: 100vh;
+    padding-top: 80px;
+    overflow-x: hidden;
   }
 
   .hero-content {
     flex-direction: column;
     text-align: center;
     padding: 2rem 1rem;
-    overflow-x: hidden; /* Hide overflow on mobile */
+    overflow-x: hidden;
+    justify-content: center;
   }
 
   .hero-text {
@@ -249,15 +267,14 @@
 
   .hero-image {
     max-width: 100%;
-    margin-right: 0; /* Reset margin for mobile */
-    margin-top: 2rem;
-    justify-content: center; /* Center image on mobile */
-    overflow: hidden; /* Hide overflow on mobile */
+    margin-right: 0;
+    justify-content: center;
   }
 
   .hero-image img {
-    max-width: 100%; /* Reset max-width for mobile */
-    transform: none; /* Remove scale for mobile */
+    max-width: 100%;
+    transform: none;
+    animation: float 6s ease-in-out infinite;
   }
 
   .services-grid {

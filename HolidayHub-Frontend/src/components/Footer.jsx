@@ -4,7 +4,7 @@ import '../styles/Footer.css';
 const Footer = () => {
   return (
     <footer className="footer">
-      <p>© 2023 Holiday Hub. All rights reserved.</p>
+      <p>© 2025 Holiday Hub. All rights reserved. | Privacy Policy | Terms of Service</p>
     </footer>
   );
 };
