@@ -1,0 +1,191 @@
+/* General Dashboard Styles */
+.dashboard-container {
+    background-color: #f5f5f7;
+    min-height: 100vh;
+}
+/* Profile Dropdown Styling */
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.profile-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: white;
+    min-width: 150px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background: #f1f1f1;
+}
+
+/* Show dropdown when hovered */
+.profile-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Header Styling */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: #2d1c4e;
+    color: white;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    height: 40px;
+}
+
+/* User Options Styling */
+.user-options {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.username {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.logout-btn {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease-in-out;
+}
+
+.logout-btn:hover {
+    background: #cc0000;
+}
+
+/* Greeting Section */
+.holiday-dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.greeting {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2d1c4e;
+    margin-bottom: 20px;
+    text-align: left;
+    width: 80%;
+}
+
+/* Calendar Styles */
+.calendar-container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    max-width: 600px;
+    border: 2px solid #007bff;
+}
+
+/* FullCalendar Styles */
+.fc-toolbar-title {
+    font-size: 20px !important;
+    font-weight: bold;
+    color: #2d1c4e;
+}
+
+.fc-daygrid-day-number {
+    color: #5a5a5a !important;
+}
+
+.fc-day-today {
+    background: #ffffb3 !important;
+    color: white !important;
+    
+}
+
+/* Tooltip Styling */
+.tooltip {
+    position: absolute;
+    background: white;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    width: 180px;
+    pointer-events: none;
+    z-index: 1000;
+    transform: translate(-50%, -100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Tooltip Header */
+.tooltip-header {
+    background: linear-gradient(135deg, #6a0dad, #8a2be2);
+    color: white;
+    width: 100%;
+    text-align: center;
+    padding: 8px 0;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Tooltip Date */
+.tooltip-date {
+    font-size: 22px;
+    font-weight: bold;
+    color: black;
+    margin-top: 5px;
+}
+
+/* Tooltip Reason */
+.tooltip-reason {
+    font-size: 14px;
+    color: black;
+    margin-top: 4px;
+}

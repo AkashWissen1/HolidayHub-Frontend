@@ -64,6 +64,7 @@ const Login = () => {
 
       if (response.ok) {
         console.log('Login successful. User role:', role);
+        localStorage.setItem("username", role);  // Store username
         switch(role.toUpperCase()) {
           case 'HR':
             navigate('/hr/dashboard');
