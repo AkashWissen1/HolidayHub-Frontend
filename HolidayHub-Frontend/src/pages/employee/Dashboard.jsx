@@ -7,23 +7,53 @@ import logo from "../../assets/logo.svg";
 
 const EmployeeDashboard = () => {
   const [username, setUsername] = useState("");
+  const [employeeId, setEmployeeId] = useState("");
+  const [clientId, setClientId] = useState("");
 
-  useEffect(() => {
-    const storedUsername = localStorage.getItem("username");
-    if (storedUsername) {
-      setUsername(storedUsername);
-    }
-  }, []);
-
-  const holidays = [
-    { title: "Tamil New Year", date: "2025-04-14", reason: "Tamil New Year" },
-    { title: "New Year's Day", date: "2025-01-01", reason: "Start of the New Year" },
-    { title: "Republic Day", date: "2025-01-26", reason: "National Holiday" },
-    { title: "Independence Day", date: "2025-08-15", reason: "Freedom Celebration" },
-  ];
-
+  const [holidays, setHolidays] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [tooltipData, setTooltipData] = useState(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    //const storedUsername = localStorage.getItem("username");
+    //const storedEmployeeId = localStorage.getItem("employeeId");
+    //const storedClientId = localStorage.getItem("clientId");
+    //if (storedClientId) setClientId(storedClientId);
+
+    //if (storedUsername) setUsername(storedUsername);
+    //if (storedEmployeeId) setEmployeeId(storedEmployeeId);
+
+    //if (storedClientId) {
+      fetchHolidays(2);
+    //}
+  }, []);
+
+  // Function to fetch holidays from backend
+  const fetchHolidays = async (clientId) => {
+    try {
+      setLoading(true);
+      const response = await fetch(`http://localhost:8082/holidays/client/${clientId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch holidays");
+      }
+      const data = await response.json();
+
+      // Convert response to FullCalendar format
+      const formattedHolidays = data.map(holiday => ({
+        title: holiday.holidayName,
+        date: holiday.holidayDate,
+        reason: holiday.holidayName, // Adding reason for tooltip
+      }));
+
+      setHolidays(formattedHolidays);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     const handleMouseMove = (event) => {
@@ -47,57 +77,64 @@ const EmployeeDashboard = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("username");
-    window.location.href = "/login"; // Redirect to login page
+    localStorage.removeItem("employeeId");
+    window.location.href = "/login"; 
   };
 
   return (
     <div className="dashboard-container">
       {/* Header Section */}
       <header className="dashboard-header">
-  <div className="logo-container">
-    <img src={logo} alt="Holiday Hub Logo" className="logo-image" />
-  </div>
+        <div className="logo-container">
+          <img src={logo} alt="Holiday Hub Logo" className="logo-image" />
+        </div>
 
-  <div className="user-options">
-    <span className="username">Hi, {username}</span>
+        <div className="user-options">
+          <span className="username">Hi, {username}</span>
 
-    {/* Profile Dropdown */}
-    <div className="profile-dropdown">
-      <button className="profile-btn">
-      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile" className="profile-icon" />
-      </button>
-      <div className="dropdown-content">
-        <a href="/profile">View Profile</a>
-        <a onClick={handleLogout}>Logout</a>
-      </div>
-    </div>
-  </div>
-</header>
-
+          {/* Profile Dropdown */}
+          <div className="profile-dropdown">
+            <button className="profile-btn">
+              <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile" className="profile-icon" />
+            </button>
+            <div className="dropdown-content">
+              <a href="/profile">View Profile</a>
+              <a onClick={handleLogout}>Logout</a>
+            </div>
+          </div>
+        </div>
+      </header>
 
       {/* Greeting and Calendar Section */}
       <div className="holiday-dashboard">
         <h1 className="greeting">Welcome, {username}</h1>
-        <div className="calendar-container">
-          <FullCalendar
-            plugins={[dayGridPlugin]}
-            initialView="dayGridMonth"
-            events={holidays}
-            eventMouseEnter={handleMouseEnter}
-          />
-          {tooltipData && (
-            <div
-              className="tooltip"
-              style={{ top: `${position.y}px`, left: `${position.x}px` }}
-            >
-              <div className="tooltip-header">
-                {new Date(tooltipData.date).toLocaleString("en-US", { month: "long" })}
+
+        {loading ? (
+          <p>Loading holidays...</p>
+        ) : error ? (
+          <p className="error">{error}</p>
+        ) : (
+          <div className="calendar-container">
+            <FullCalendar
+              plugins={[dayGridPlugin]}
+              initialView="dayGridMonth"
+              events={holidays}
+              eventMouseEnter={handleMouseEnter}
+            />
+            {tooltipData && (
+              <div
+                className="tooltip"
+                style={{ top: `${position.y}px`, left: `${position.x}px` }}
+              >
+                <div className="tooltip-header">
+                  {new Date(tooltipData.date).toLocaleString("en-US", { month: "long" })}
+                </div>
+                <div className="tooltip-date">{new Date(tooltipData.date).getDate()}</div>
+                <div className="tooltip-reason">{tooltipData.reason}</div>
               </div>
-              <div className="tooltip-date">{new Date(tooltipData.date).getDate()}</div>
-              <div className="tooltip-reason">{tooltipData.reason}</div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
