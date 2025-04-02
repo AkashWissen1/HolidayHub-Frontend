@@ -22,7 +22,6 @@ const DashboardHeader = () => {
   }, []);
 
   const handleLogout = () => {
-    // Clear the stored role and any other auth data
     localStorage.removeItem('userRole');
     navigate('/');
   };

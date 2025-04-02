@@ -59,9 +59,7 @@ const Login = () => {
       });
 
       if (response.ok) {
-        const designation = await response.text(); // Change this to handle text response
-        
-        // Store the designation as the role
+        const designation = await response.text(); 
         localStorage.setItem('userRole', designation.toUpperCase());
         
         switch(designation.toUpperCase()) {
@@ -75,7 +73,7 @@ const Login = () => {
             navigate('/employee/dashboard');
             break;
           default:
-            setErrors({ api: 'Invalid designation received from server' });
+            setErrors({ api: 'The username or password does not match' });
         }
       } else {
         setErrors({ api: 'Invalid email or password' });
