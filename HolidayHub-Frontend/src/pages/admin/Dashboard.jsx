@@ -1,10 +1,14 @@
 import React from 'react';
+import DashboardHeader from '../../components/DashboardHeader';
 
 const AdminDashboard = () => {
   return (
     <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
-      <p>Welcome to the Admin Dashboard</p>
+      <DashboardHeader />
+      <div className="dashboard-content">
+        <h1>Admin Dashboard</h1>
+        <p>Welcome to the Admin Dashboard</p>
+      </div>
     </div>
   );
 };

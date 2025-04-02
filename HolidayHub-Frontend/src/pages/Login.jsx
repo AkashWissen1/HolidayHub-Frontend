@@ -48,7 +48,6 @@ const Login = () => {
     }
 
     setIsLoading(true);
-    console.log('Sending login DTO:', loginDto);
 
     try {
       const response = await fetch('http://localhost:8083/auth/login', {
@@ -59,12 +58,13 @@ const Login = () => {
         body: JSON.stringify(loginDto),
       });
 
-      const role = await response.text();
-      console.log('Backend response:', { status: response.status, role });
-
       if (response.ok) {
-        console.log('Login successful. User role:', role);
-        switch(role.toUpperCase()) {
+        const designation = await response.text(); // Change this to handle text response
+        
+        // Store the designation as the role
+        localStorage.setItem('userRole', designation.toUpperCase());
+        
+        switch(designation.toUpperCase()) {
           case 'HR':
             navigate('/hr/dashboard');
             break;
@@ -75,14 +75,13 @@ const Login = () => {
             navigate('/employee/dashboard');
             break;
           default:
-            setErrors({ api: 'Invalid role received from server' });
+            setErrors({ api: 'Invalid designation received from server' });
         }
       } else {
-        console.log('Login failed. Server response:', role);
         setErrors({ api: 'Invalid email or password' });
       }
     } catch (error) {
-      console.error('Network error during login:', error);
+      console.error('Login error:', error);
       setErrors({ api: 'Network error. Please try again.' });
     } finally {
       setIsLoading(false);
@@ -91,9 +90,14 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      <button className="back-button" onClick={() => navigate('/')}>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+        </svg>
+        Back
+      </button>
       <div className="login-card">
-        <h2>Welcome Back</h2>
-        <p className="subtitle">Please enter your credentials to login</p>
+        <h2>Please enter your credentials to login</h2>
 
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
@@ -139,7 +143,6 @@ const Login = () => {
 
         <div className="form-footer">
           <a href="/forgot-password">Forgot Password?</a>
-          <a href="/register">Create Account</a>
         </div>
       </div>
     </div>
@@ -147,10 +150,6 @@ const Login = () => {
 };
 
 export default Login;
-
-
-
-
 
 
 
