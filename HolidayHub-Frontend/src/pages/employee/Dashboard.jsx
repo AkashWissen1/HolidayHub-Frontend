@@ -8,7 +8,7 @@ import logo from "../../assets/logo.svg";
 const EmployeeDashboard = () => {
   const [username, setUsername] = useState("");
   const [employeeId, setEmployeeId] = useState("");
-  const [clientId, setClientId] = useState("");
+  const [clientId, setClientId] = useState(null); 
 
   const [holidays, setHolidays] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,21 +16,28 @@ const EmployeeDashboard = () => {
   const [tooltipData, setTooltipData] = useState(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
+ 
   useEffect(() => {
-    //const storedUsername = localStorage.getItem("username");
-    //const storedEmployeeId = localStorage.getItem("employeeId");
-    //const storedClientId = localStorage.getItem("clientId");
-    //if (storedClientId) setClientId(storedClientId);
+    const storedUsername = localStorage.getItem("username");
+    const storedEmployeeId = localStorage.getItem("employeeId");
+    const storedClientId = localStorage.getItem("clientId");
 
-    //if (storedUsername) setUsername(storedUsername);
-    //if (storedEmployeeId) setEmployeeId(storedEmployeeId);
+    console.log("Stored Client ID:", storedClientId); 
+    console.log("Stored Username:", storedUsername); 
 
-    //if (storedClientId) {
-      fetchHolidays(2);
-    //}
+    if (storedUsername) setUsername(storedUsername);
+    if (storedEmployeeId) setEmployeeId(storedEmployeeId);
+    if (storedClientId) setClientId(storedClientId); 
   }, []);
 
-  // Function to fetch holidays from backend
+
+  useEffect(() => {
+    if (clientId) {
+      fetchHolidays(2);
+    }
+  }, [clientId]); 
+
+  
   const fetchHolidays = async (clientId) => {
     try {
       setLoading(true);
@@ -40,11 +47,10 @@ const EmployeeDashboard = () => {
       }
       const data = await response.json();
 
-      // Convert response to FullCalendar format
       const formattedHolidays = data.map(holiday => ({
         title: holiday.holidayName,
         date: holiday.holidayDate,
-        reason: holiday.holidayName, // Adding reason for tooltip
+        reason: holiday.holidayName, 
       }));
 
       setHolidays(formattedHolidays);
@@ -78,6 +84,7 @@ const EmployeeDashboard = () => {
   const handleLogout = () => {
     localStorage.removeItem("username");
     localStorage.removeItem("employeeId");
+    localStorage.removeItem("clientId");
     window.location.href = "/login"; 
   };
 

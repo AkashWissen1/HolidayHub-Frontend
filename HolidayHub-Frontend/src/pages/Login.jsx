@@ -59,12 +59,17 @@ const Login = () => {
         body: JSON.stringify(loginDto),
       });
 
-      const role = await response.text();
-      console.log('Backend response:', { status: response.status, role });
+      const result = await response.json();
+      const role = result.designation; 
+      console.log('Backend response:', { status: response.status, result });
 
       if (response.ok) {
-        console.log('Login successful. User role:', role);
-        localStorage.setItem("username", role);  // Store username
+        console.log('Login successful.');
+        //console.log('Role:', role);
+        //console.log('Employee Name:', result.employeeName);
+        //console.log('Employee ID:', result.id);
+        localStorage.setItem("username", result.employeeName);
+        localStorage.setItem("employeeId", result.id);  
         switch(role.toUpperCase()) {
           case 'HR':
             navigate('/hr/dashboard');
@@ -73,6 +78,7 @@ const Login = () => {
             navigate('/admin/dashboard');
             break;
           case 'EMPLOYEE':
+            localStorage.setItem("clientId", result.clientId); 
             navigate('/employee/dashboard');
             break;
           default:
