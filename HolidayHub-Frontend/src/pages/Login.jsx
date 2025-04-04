@@ -70,6 +70,7 @@ const Login = () => {
         //console.log('Employee ID:', result.id);
         localStorage.setItem("username", result.employeeName);
         localStorage.setItem("employeeId", result.id);  
+        localStorage.setItem("email", result.email);
         switch(role.toUpperCase()) {
           case 'HR':
             navigate('/hr/dashboard');

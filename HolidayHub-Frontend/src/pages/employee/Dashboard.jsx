@@ -4,11 +4,15 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import "./HolidayCalender.css";
 import "../../styles/Header.css";
 import logo from "../../assets/logo.svg"; 
+import Footer from "../../components/Footer";
 
 const EmployeeDashboard = () => {
   const [username, setUsername] = useState("");
   const [employeeId, setEmployeeId] = useState("");
   const [clientId, setClientId] = useState(null); 
+  const [emailId, setEmailId] = useState("");
+  const [clientDetails, setClientDetails] = useState(null);
+
 
   const [holidays, setHolidays] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,27 +20,46 @@ const EmployeeDashboard = () => {
   const [tooltipData, setTooltipData] = useState(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
+  const [showProfileOverlay, setShowProfileOverlay] = useState(false);
+
  
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
     const storedEmployeeId = localStorage.getItem("employeeId");
     const storedClientId = localStorage.getItem("clientId");
+    const storedemailId = localStorage.getItem("email");
 
     console.log("Stored Client ID:", storedClientId); 
     console.log("Stored Username:", storedUsername); 
+    console.log("Stored Employee ID:", storedEmployeeId);
+    console.log("Stored Email ID:", storedemailId);
 
     if (storedUsername) setUsername(storedUsername);
     if (storedEmployeeId) setEmployeeId(storedEmployeeId);
-    if (storedClientId) setClientId(storedClientId); 
+    if (storedClientId) setClientId(storedClientId);
+    if (storedemailId) setEmailId(storedemailId); 
   }, []);
 
 
   useEffect(() => {
     if (clientId) {
-      fetchHolidays(2);
+      fetchHolidays(clientId);
+      fetchClientDetails(clientId);
     }
   }, [clientId]); 
 
+  const fetchClientDetails = async (clientId) => {
+    try {
+      const response = await fetch(`http://localhost:8081/clients/${clientId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch employee details");
+      }
+      const data = await response.json();
+      setClientDetails(data);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
   
   const fetchHolidays = async (clientId) => {
     try {
@@ -85,6 +108,8 @@ const EmployeeDashboard = () => {
     localStorage.removeItem("username");
     localStorage.removeItem("employeeId");
     localStorage.removeItem("clientId");
+    localStorage.removeItem("email");
+    localStorage.removeItem("role");
     window.location.href = "/login"; 
   };
 
@@ -105,12 +130,28 @@ const EmployeeDashboard = () => {
               <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile" className="profile-icon" />
             </button>
             <div className="dropdown-content">
-              <a href="/profile">View Profile</a>
+              <a onClick={() => setShowProfileOverlay(true)}>View Profile</a>
               <a onClick={handleLogout}>Logout</a>
             </div>
           </div>
         </div>
       </header>
+
+
+      {/* Profile Overlay */}
+      {showProfileOverlay && (
+        <div className="overlay">
+          <div className="overlay-content">
+          <button className="close-btn" onClick={() => setShowProfileOverlay(false)}>X</button>
+            <div className="overlay-title">Profile Details</div>
+            <p><strong>Employee ID:</strong> {employeeId}</p>
+            <p><strong>Name:</strong> {username}</p>
+            <p><strong>Email ID:</strong> {emailId}</p>
+            <p><strong>Client:</strong> {clientDetails.clientName}</p>
+            <p><strong>Designation:</strong> Employee</p>
+          </div>
+        </div>
+      )}
 
       {/* Greeting and Calendar Section */}
       <div className="holiday-dashboard">
@@ -143,6 +184,8 @@ const EmployeeDashboard = () => {
           </div>
         )}
       </div>
+      <br></br><br></br>
+      <Footer />
     </div>
   );
 };
