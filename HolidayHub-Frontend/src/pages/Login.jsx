@@ -64,14 +64,6 @@ const Login = () => {
       });
 
       if (response.ok) {
-        console.log('Login successful.');
-        //console.log('Role:', role);
-        //console.log('Employee Name:', result.employeeName);
-        //console.log('Employee ID:', result.id);
-        localStorage.setItem("username", result.employeeName);
-        localStorage.setItem("employeeId", result.id);  
-        localStorage.setItem("email", result.email);
-        switch(role.toUpperCase()) {
         const userData = await response.json(); // Parse as JSON instead of text
         console.log('Received user data:', userData);
         
@@ -81,6 +73,7 @@ const Login = () => {
         localStorage.setItem('userRole', designation.trim().toUpperCase());
         localStorage.setItem('employeeName', userData.employeeName);
         localStorage.setItem('employeeId', userData.id);
+        localStorage.setItem('email', userData.email);
         if (userData.clientId) {
           localStorage.setItem('clientId', userData.clientId);
         }

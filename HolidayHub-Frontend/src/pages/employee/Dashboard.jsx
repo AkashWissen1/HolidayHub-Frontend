@@ -24,7 +24,7 @@ const EmployeeDashboard = () => {
 
  
   useEffect(() => {
-    const storedUsername = localStorage.getItem("username");
+    const storedUsername = localStorage.getItem("employeeName");
     const storedEmployeeId = localStorage.getItem("employeeId");
     const storedClientId = localStorage.getItem("clientId");
     const storedemailId = localStorage.getItem("email");
@@ -105,11 +105,10 @@ const EmployeeDashboard = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("username");
+    localStorage.removeItem("employeeName");
     localStorage.removeItem("employeeId");
     localStorage.removeItem("clientId");
     localStorage.removeItem("email");
-    localStorage.removeItem("role");
     window.location.href = "/login"; 
   };
 
