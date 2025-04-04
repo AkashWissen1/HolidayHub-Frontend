@@ -1,0 +1,179 @@
+.dashboard-container {
+  min-height: 100vh;
+  background-color: #f5f5f7;
+}
+
+.dashboard-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.logo-container {
+  height: 40px;
+}
+
+.logo-image {
+  height: 100%;
+}
+
+.user-options {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.username {
+  color: #2c1053;
+  font-weight: 500;
+}
+
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  padding: 8px 0;
+}
+
+.profile-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a {
+  color: #2c1053;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+.dropdown-content a:hover {
+  background-color: #f5f5f7;
+}
+
+.dashboard-content {
+  padding: 100px 32px 32px;
+  background-color: #f5f5f7;
+  min-height: 100vh;
+}
+
+.greeting {
+  color: #2c1053;
+  margin-bottom: 32px;
+  font-size: 2rem;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.analytics-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.analytics-card:hover {
+  transform: translateY(-2px);
+}
+
+.analytics-card h3 {
+  color: #2c1053;
+  margin: 0 0 16px 0;
+  font-size: 1.1rem;
+}
+
+.metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.number {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #2c1053;
+}
+
+.icon {
+  font-size: 2rem;
+}
+
+.department-stats {
+  grid-column: span 2;
+}
+
+.department-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.department-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.dept-name {
+  color: #2c1053;
+  font-weight: 500;
+}
+
+.dept-count {
+  background: #2c1053;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    padding: 90px 16px 16px;
+  }
+
+  .department-stats {
+    grid-column: span 1;
+  }
+}
+
