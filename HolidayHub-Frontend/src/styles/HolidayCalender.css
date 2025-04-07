@@ -3,6 +3,49 @@
     background-color: #f5f5f7;
     min-height: 100vh;
 }
+
+.dashboard-layout {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .holiday-dashboard {
+    flex: 1;
+  }
+
+  
+  .upcoming-holiday-box {
+    width: 250px;
+    height: 250px;
+    padding: 20px;
+    margin-top: 200px;
+    margin-right: 70px;
+    background-color: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .upcoming-holiday-box h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #2c1053;
+  }
+  
+  .upcoming-holiday-box p {
+    margin-top: 20px;
+    font-size: 38px;
+    font-weight: bold;
+    color: #2c1053;
+   
+  }
+  
 /* Profile Dropdown Styling */
 .profile-dropdown {
     position: relative;
@@ -144,18 +187,26 @@
     
 }
 
-.fc-daygrid-event {
-    background-color: lightcoral !important; 
-    color: white !important; 
-    border-radius: 5px; 
-    padding: 2px 5px;
-    font-weight: bold;
-}
+.fc-daygrid-body tr:last-child {
+    display: none;
+  }
 
-.holiday-cell {
-    background-color: lightcoral !important; /* Light red */
-    color: white !important; /* Ensure text is readable */
+
+  .fc .fc-daygrid-day.fc-day-sat .fc-daygrid-day-number,
+  .fc .fc-daygrid-day.fc-day-sun .fc-daygrid-day-number {
+    color: red !important;
+  }
+
+.fc-event {
+    background: lightcoral;
+    color: white;
+    border: 1px solid lightcoral;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
 }
+  
 
 /* Tooltip Styling */
 .tooltip {
@@ -175,6 +226,8 @@
     align-items: center;
     font-family: Arial, sans-serif;
 }
+
+
 
 /* Tooltip Header */
 .tooltip-header {
