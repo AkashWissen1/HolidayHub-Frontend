@@ -1,118 +1,135 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/HRDashboard.css';
-import logo from '../../assets/logo.svg';
+import DashboardHeader from '../../components/DashboardHeader';
+import Sidebar from '../../components/Sidebar';
 
 const HRDashboard = () => {
-  const [employeeName, setEmployeeName] = useState('');
-  const [analyticsData, setAnalyticsData] = useState({
-    totalEmployees: 150,
-    onLeaveToday: 5,
-    pendingRequests: 8,
-    approvedLeaves: 45
+  const [dashboardStats, setDashboardStats] = useState({
+    totalClients: 0,
+    totalEmployees: 0,
+    totalHolidays: 0,
+    upcomingHolidays: 0,
+    employeeDistribution: []
   });
 
-  useEffect(() => {
-    const storedName = localStorage.getItem('employeeName');
-    if (storedName) setEmployeeName(storedName);
-  }, []);
+  const employeeName = localStorage.getItem('employeeName');
 
-  const handleLogout = () => {
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('employeeName');
-    localStorage.removeItem('employeeId');
-    localStorage.removeItem('clientId');
-    window.location.href = '/login';
-  };
+  useEffect(() => {
+    // Fetch clients first
+    fetch('http://localhost:8081/clients')
+      .then(response => response.json())
+      .then(clientsData => {
+        // Store clients data with initial count of 0
+        const clientsMap = clientsData.reduce((acc, client) => {
+          acc[client.id] = {
+            clientId: client.id,
+            clientName: client.clientName,
+            employeeCount: 0
+          };
+          return acc;
+        }, {});
+
+        // Fetch all employees
+        fetch('http://localhost:8085/employees')
+          .then(response => response.json())
+          .then(employeesData => {
+            // Calculate employee distribution
+            employeesData.forEach(employee => {
+              if (clientsMap[employee.clientId]) {
+                clientsMap[employee.clientId].employeeCount++;
+              }
+            });
+
+            const distribution = Object.values(clientsMap);
+
+            setDashboardStats(prev => ({
+              ...prev,
+              totalClients: clientsData.length,
+              totalEmployees: employeesData.length,
+              employeeDistribution: distribution
+            }));
+          })
+          .catch(error => console.error('Error fetching employees:', error));
+      })
+      .catch(error => console.error('Error fetching clients:', error));
+
+    // Fetch holidays
+    fetch('http://localhost:8082/holidays')
+      .then(response => response.json())
+      .then(data => {
+        const today = new Date();
+        const upcoming = data.filter(holiday => new Date(holiday.holidayDate) >= today);
+        
+        setDashboardStats(prev => ({
+          ...prev,
+          totalHolidays: data.length,
+          upcomingHolidays: upcoming.length
+        }));
+      })
+      .catch(error => console.error('Error fetching holidays:', error));
+  }, []);
 
   return (
     <div className="dashboard-container">
-      {/* Header Section */}
-      <header className="dashboard-header">
-        <div className="logo-container">
-          <img src={logo} alt="Holiday Hub Logo" className="logo-image" />
-        </div>
+      <DashboardHeader />
+      <div className="dashboard-main">
+        <Sidebar />
+        <div className="dashboard-content">
+          <h1 className="greeting">Welcome, {employeeName}</h1>
 
-        <div className="user-options">
-          <span className="username">Hi, {employeeName}</span>
-
-          {/* Profile Dropdown */}
-          <div className="profile-dropdown">
-            <button className="profile-btn">
-              <img 
-                src="https://cdn-icons-png.flaticon.com/512/149/149071.png" 
-                alt="Profile" 
-                className="profile-icon" 
-              />
-            </button>
-            <div className="dropdown-content">
-              <a href="/profile">View Profile</a>
-              <a onClick={handleLogout}>Logout</a>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Dashboard Content */}
-      <div className="dashboard-content">
-        <h1 className="greeting">Welcome, {employeeName}</h1>
-
-        {/* Analytics Grid */}
-        <div className="analytics-grid">
-          <div className="analytics-card">
-            <h3>Total Employees</h3>
-            <div className="metric">
-              <span className="number">{analyticsData.totalEmployees}</span>
-              <span className="icon">👥</span>
-            </div>
-          </div>
-
-          <div className="analytics-card">
-            <h3>On Leave Today</h3>
-            <div className="metric">
-              <span className="number">{analyticsData.onLeaveToday}</span>
-              <span className="icon">🏖️</span>
-            </div>
-          </div>
-
-          <div className="analytics-card">
-            <h3>Pending Requests</h3>
-            <div className="metric">
-              <span className="number">{analyticsData.pendingRequests}</span>
-              <span className="icon">⏳</span>
-            </div>
-          </div>
-
-          <div className="analytics-card">
-            <h3>Approved Leaves</h3>
-            <div className="metric">
-              <span className="number">{analyticsData.approvedLeaves}</span>
-              <span className="icon">✅</span>
-            </div>
-          </div>
-
-          {/* Department Stats */}
-          <div className="analytics-card department-stats">
-            <h3>Department Statistics</h3>
-            <div className="department-list">
-              <div className="department-item">
-                <span className="dept-name">Engineering</span>
-                <span className="dept-count">45</span>
+          <div className="analytics-grid">
+            <div className="analytics-card">
+              <h3>Total Clients</h3>
+              <div className="metric">
+                <span className="number">{dashboardStats.totalClients}</span>
+                <span className="icon">🏢</span>
               </div>
-              <div className="department-item">
-                <span className="dept-name">Marketing</span>
-                <span className="dept-count">23</span>
+            </div>
+
+            <div className="analytics-card">
+              <h3>Total Employees</h3>
+              <div className="metric">
+                <span className="number">{dashboardStats.totalEmployees}</span>
+                <span className="icon">👥</span>
               </div>
-              <div className="department-item">
-                <span className="dept-name">Sales</span>
-                <span className="dept-count">34</span>
+            </div>
+
+            <div className="analytics-card">
+              <h3>Total Holidays</h3>
+              <div className="metric">
+                <span className="number">{dashboardStats.totalHolidays}</span>
+                <span className="icon">📅</span>
               </div>
-              <div className="department-item">
-                <span className="dept-name">Finance</span>
-                <span className="dept-count">18</span>
+            </div>
+
+            <div className="analytics-card">
+              <h3>Upcoming Holidays</h3>
+              <div className="metric">
+                <span className="number">{dashboardStats.upcomingHolidays}</span>
+                <span className="icon">🎉</span>
               </div>
-              <div className="department-item">
-                <span className="dept-name">HR</span>
-                <span className="dept-count">12</span>
+            </div>
+
+            <div className="analytics-card distribution-stats">
+              <h3>Employee Distribution by Client</h3>
+              <div className="distribution-list">
+                {dashboardStats.employeeDistribution.map((item, index) => (
+                  <div key={index} className="distribution-item">
+                    <div className="distribution-info">
+                      <span className="client-name">{item.clientName}</span>
+                      <span className="employee-count">{item.employeeCount}</span>
+                    </div>
+                    <div className="distribution-bar">
+                      <div 
+                        className="bar-fill"
+                        style={{
+                          width: `${(item.employeeCount / dashboardStats.totalEmployees * 100) || 0}%`,
+                          backgroundColor: '#7a00ff'
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -123,3 +140,4 @@ const HRDashboard = () => {
 };
 
 export default HRDashboard;
+  

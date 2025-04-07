@@ -59,21 +59,37 @@
 }
 
 .form-group input.error {
-  border-color: #ff4444;
+  border-color: #ff4d4f;
+  background-color: #fff2f0;
+}
+
+.form-group input.error:focus {
+  border-color: #ff4d4f;
+  box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2);
 }
 
 .error-message {
-  color: #ff4444;
-  font-size: 0.875rem;
+  color: #ff4d4f;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  display: block;
 }
 
 .api-error {
-  color: #ff4444;
-  text-align: center;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  background-color: #ffe5e5;
-  border-radius: 5px;
+  background-color: #fff2f0;
+  border: 1px solid #ffccc7;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+  color: #ff4d4f;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.error-icon {
+  font-size: 1.1rem;
 }
 
 .login-btn {
