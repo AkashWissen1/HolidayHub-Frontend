@@ -73,6 +73,7 @@ const Login = () => {
         localStorage.setItem('userRole', designation.trim().toUpperCase());
         localStorage.setItem('employeeName', userData.employeeName);
         localStorage.setItem('employeeId', userData.id);
+        localStorage.setItem('email', userData.email);
         if (userData.clientId) {
           localStorage.setItem('clientId', userData.clientId);
         }
