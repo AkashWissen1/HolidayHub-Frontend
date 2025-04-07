@@ -15,6 +15,10 @@ const DashboardHeader = () => {
     navigate('/login');
   };
 
+  const handleChangePassword = () => {
+    navigate('/change-password');
+  };
+
   return (
     <header className="dashboard-header">
       <div className="logo-container">
@@ -35,6 +39,7 @@ const DashboardHeader = () => {
           </button>
           <div className="dropdown-content">
             <a href="/profile">View Profile</a>
+            <a onClick={handleChangePassword}>Change Password</a>
             <a onClick={handleLogout}>Logout</a>
           </div>
         </div>
@@ -44,5 +49,6 @@ const DashboardHeader = () => {
 };
 
 export default DashboardHeader;
+
 
 
