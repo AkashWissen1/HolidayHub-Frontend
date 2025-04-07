@@ -116,6 +116,26 @@
   color: #5900cc;
 }
 
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 8px 16px;
+  background-color: transparent;
+  color: #7a00ff;
+  border: 1px solid #7a00ff;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.back-btn:hover {
+  background-color: #7a00ff;
+  color: white;
+  transform: translateX(-5px);
+}
+
 @media (max-width: 480px) {
   .login-card {
     padding: 1.5rem;

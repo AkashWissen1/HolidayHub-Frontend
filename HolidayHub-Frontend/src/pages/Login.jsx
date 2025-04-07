@@ -11,6 +11,10 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
+  const handleBack = () => {
+    navigate('/');
+  };
+
   const validateEmail = (email) => {
     return email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
   };
@@ -59,30 +63,44 @@ const Login = () => {
         body: JSON.stringify(loginDto),
       });
 
-      const role = await response.text();
-      console.log('Backend response:', { status: response.status, role });
-
       if (response.ok) {
-        console.log('Login successful. User role:', role);
-        switch(role.toUpperCase()) {
+        const userData = await response.json(); // Parse as JSON instead of text
+        console.log('Received user data:', userData);
+        
+        const designation = userData.designation; // Extract designation from user data
+        
+        // Store user data in localStorage
+        localStorage.setItem('userRole', designation.trim().toUpperCase());
+        localStorage.setItem('employeeName', userData.employeeName);
+        localStorage.setItem('employeeId', userData.id);
+        if (userData.clientId) {
+          localStorage.setItem('clientId', userData.clientId);
+        }
+        
+        // Navigate based on role
+        switch(designation.trim().toUpperCase()) {
           case 'HR':
+            console.log('Navigating to HR dashboard');
             navigate('/hr/dashboard');
             break;
           case 'ADMIN':
+            console.log('Navigating to Admin dashboard');
             navigate('/admin/dashboard');
             break;
           case 'EMPLOYEE':
+            console.log('Navigating to Employee dashboard');
             navigate('/employee/dashboard');
             break;
           default:
-            setErrors({ api: 'Invalid role received from server' });
+            console.error('Invalid designation:', designation);
+            setErrors({ api: 'Invalid designation received from server' });
         }
       } else {
-        console.log('Login failed. Server response:', role);
+        console.error('Login failed:', response.status);
         setErrors({ api: 'Invalid email or password' });
       }
     } catch (error) {
-      console.error('Network error during login:', error);
+      console.error('Login error:', error);
       setErrors({ api: 'Network error. Please try again.' });
     } finally {
       setIsLoading(false);
@@ -91,6 +109,9 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      <button onClick={handleBack} className="back-btn">
+        ← Back to Home
+      </button>
       <div className="login-card">
         <h2>Welcome Back</h2>
         <p className="subtitle">Please enter your credentials to login</p>
@@ -139,7 +160,6 @@ const Login = () => {
 
         <div className="form-footer">
           <a href="/forgot-password">Forgot Password?</a>
-          <a href="/register">Create Account</a>
         </div>
       </div>
     </div>
@@ -147,8 +167,6 @@ const Login = () => {
 };
 
 export default Login;
-
-
 
 
 
