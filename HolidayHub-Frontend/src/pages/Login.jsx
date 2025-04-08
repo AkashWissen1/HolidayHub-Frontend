@@ -63,13 +63,20 @@ const Login = () => {
         body: JSON.stringify(loginDto),
       });
 
+      // First check if the response is ok
       if (response.ok) {
-        const userData = await response.json(); // Parse as JSON instead of text
+        let userData;
+        try {
+          userData = await response.json();
+        } catch (parseError) {
+          setErrors({ api: 'Username or password is incorrect' });
+          return;
+        }
+
         console.log('Received user data:', userData);
         
-        const designation = userData.designation; // Extract designation from user data
+        const designation = userData.designation;
         
-        // Store user data in localStorage
         localStorage.setItem('userRole', designation.trim().toUpperCase());
         localStorage.setItem('employeeName', userData.employeeName);
         localStorage.setItem('employeeId', userData.id);
@@ -78,7 +85,6 @@ const Login = () => {
           localStorage.setItem('clientId', userData.clientId);
         }
         
-        // Navigate based on role
         switch(designation.trim().toUpperCase()) {
           case 'HR':
             console.log('Navigating to HR dashboard');
@@ -97,12 +103,30 @@ const Login = () => {
             setErrors({ api: 'Invalid designation received from server' });
         }
       } else {
-        console.error('Login failed:', response.status);
-        setErrors({ api: 'Invalid email or password' });
+        // Handle different HTTP status codes
+        switch (response.status) {
+          case 401:
+            setErrors({ api: 'Invalid email or password' });
+            break;
+          case 403:
+            setErrors({ api: 'Account is locked. Please contact administrator' });
+            break;
+          case 404:
+            setErrors({ api: 'Account not found' });
+            break;
+          default:
+            // Try to get error message from response
+            try {
+              const errorData = await response.text();
+              setErrors({ api: errorData || 'Login failed. Please try again.' });
+            } catch (parseError) {
+              setErrors({ api: 'Login failed. Please try again.' });
+            }
+        }
       }
     } catch (error) {
       console.error('Login error:', error);
-      setErrors({ api: 'Network error. Please try again.' });
+      setErrors({ api: 'Network error. Please check your connection and try again.' });
     } finally {
       setIsLoading(false);
     }

@@ -1,14 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { FaHome, FaUserTie, FaUsers, FaCalendarAlt, FaUserCheck, FaSearch } from "react-icons/fa";
-import "../styles/Sidebar.css"; // Ensure your styles are properly linked
+import "../styles/Sidebar.css";
 
 const Sidebar = () => {
   return (
     <div className="sidebar">
       <nav>
         <ul>
-          {/* Home */}
+          {/* HR Dashboard as Home */}
           <li>
             <NavLink exact to="/hr/dashboard" activeClassName="active">
               <FaHome className="icon" /> Home
@@ -34,7 +34,7 @@ const Sidebar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/employee-management" activeClassName="active">
+            <NavLink to="/hr/employees" activeClassName="active">
               <FaUsers className="icon" /> Employee Management
             </NavLink>
           </li>

@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import ForgotPassword from './pages/ForgotPassword';
+import ChangePassword from './pages/ChangePassword';
 import HRDashboard from './pages/hr/Dashboard';
 import ClientManagement from './pages/hr/ClientManagement'; // Import ClientManagement page
 import SearchByID from './pages/hr/SearchByID'; 
@@ -9,6 +11,7 @@ import AdminDashboard from './pages/admin/Dashboard';
 import EmployeeDashboard from './pages/employee/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
+import EmployeeManagement from './pages/hr/EmployeeManagement';
 
 function App() {
   return (
@@ -17,6 +20,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/change-password" element={<ChangePassword />} />
           <Route 
             path="/hr/dashboard" 
             element={
