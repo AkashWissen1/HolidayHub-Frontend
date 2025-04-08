@@ -38,6 +38,15 @@ function App() {
               </ProtectedRoute>
             } 
           />
+
+          <Route 
+            path="/hr/employees" 
+            element={
+              <ProtectedRoute allowedRole="HR">
+                <EmployeeManagement />
+              </ProtectedRoute>
+            } 
+          />
           <Route 
             path="/hr/search-by-employee" 
             element={
