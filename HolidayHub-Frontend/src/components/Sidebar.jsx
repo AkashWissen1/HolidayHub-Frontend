@@ -10,19 +10,19 @@ const Sidebar = () => {
         <ul>
           {/* Home */}
           <li>
-            <NavLink exact to="/" activeClassName="active">
+            <NavLink exact to="/hr/dashboard" activeClassName="active">
               <FaHome className="icon" /> Home
             </NavLink>
           </li>
 
           {/* Search Options */}
           <li>
-            <NavLink to="/search-by-employee" activeClassName="active">
+            <NavLink to="/hr/search-by-employee" activeClassName="active">
               <FaSearch className="icon" /> Search By Employee ID
             </NavLink>
           </li>
           <li>
-            <NavLink to="/search-by-client" activeClassName="active">
+            <NavLink to="/hr/search-by-client" activeClassName="active">
               <FaSearch className="icon" /> Search By Client Name
             </NavLink>
           </li>
