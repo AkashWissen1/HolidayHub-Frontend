@@ -7,6 +7,7 @@ import AdminDashboard from './pages/admin/Dashboard';
 import EmployeeDashboard from './pages/employee/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
+import EmployeeManagement from './pages/hr/EmployeeManagement';
 
 function App() {
   return (
@@ -28,6 +29,14 @@ function App() {
             element={
               <ProtectedRoute allowedRole="HR">
                 <ClientManagement />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/hr/employees" 
+            element={
+              <ProtectedRoute allowedRole="HR">
+                <EmployeeManagement/>
               </ProtectedRoute>
             } 
           />
