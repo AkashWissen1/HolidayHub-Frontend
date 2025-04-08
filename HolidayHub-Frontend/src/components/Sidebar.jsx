@@ -10,7 +10,7 @@ const Sidebar = () => {
         <ul>
           {/* Home */}
           <li>
-            <NavLink exact to="/" activeClassName="active">
+            <NavLink exact to="/hr/dashboard" activeClassName="active">
               <FaHome className="icon" /> Home
             </NavLink>
           </li>
@@ -34,7 +34,7 @@ const Sidebar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/employee-management" activeClassName="active">
+            <NavLink to="/hr/employees" activeClassName="active">
               <FaUsers className="icon" /> Employee Management
             </NavLink>
           </li>
