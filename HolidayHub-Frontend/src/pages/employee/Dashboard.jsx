@@ -84,6 +84,10 @@ const EmployeeDashboard = () => {
     window.location.href = "/login";
   };
 
+  const handleChangePassword = () => {
+    window.location.href = "/change-password";
+  };
+
   return (
     <div className="dashboard-container">
       {/* Header */}
@@ -103,6 +107,7 @@ const EmployeeDashboard = () => {
             </button>
             <div className="dropdown-content">
               <a onClick={() => setShowProfileOverlay(true)}>View Profile</a>
+              <a onClick={handleChangePassword}>Change Password</a>
               <a onClick={handleLogout}>Logout</a>
             </div>
           </div>

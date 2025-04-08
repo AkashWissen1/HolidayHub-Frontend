@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Header from "../../components/Header";
+import DashboardHeader from "../../components/DashboardHeader";
 import Footer from "../../components/Footer";
 import Sidebar from "../../components/Sidebar";
 import "../../styles/ClientManagement.css";
@@ -102,7 +102,7 @@ const ClientManagement = () => {
 
   return (
     <div className={`client-management-container ${showAddForm || showEditForm ? "blur-background" : ""}`}>
-      <Header />
+      <DashboardHeader />
       <div className="client-management-content">
         <Sidebar />
         <div className="client-management">
