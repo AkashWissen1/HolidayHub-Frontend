@@ -3,6 +3,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Sidebar from "../../components/Sidebar";
 import "../../styles/EmployeeManagement.css";
+import DashboardHeader from "../../components/DashboardHeader";
 import { FaEdit, FaTrash, FaPlus, FaSearch, FaSort } from "react-icons/fa";
 
 const API_BASE_URL = "http://localhost:8085/employees";
@@ -121,7 +122,7 @@ const EmployeeManagement = () => {
         showAddForm || showEditForm ? "blur-background" : ""
       }`}
     >
-      <Header />
+      <DashboardHeader />
       <div className="client-management-content">
         <Sidebar />
         <div className="client-management">
