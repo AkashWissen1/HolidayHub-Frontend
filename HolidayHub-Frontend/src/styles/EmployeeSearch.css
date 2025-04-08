@@ -1,0 +1,269 @@
+/* Profile Dropdown Styling */
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background: white;
+  min-width: 150px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px;
+  color: black;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.dropdown-content a:hover {
+  background: #f1f1f1;
+}
+
+/* Show dropdown when hovered */
+.profile-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Header Styling */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: #2d1c4e;
+  color: white;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo-image {
+  height: 40px;
+}
+
+/* User Options Styling */
+.user-options {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.username {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.logout-btn {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease-in-out;
+}
+
+.logout-btn:hover {
+  background: #cc0000;
+}
+
+.employee-search-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f6f6f6;
+}
+
+.employee-search-body {
+  display: flex;
+  flex: 1;
+}
+
+.employee-search-main {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 240px; 
+  box-sizing: border-box;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+
+
+.search-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.search-input {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: 2px solid #8c52ff;
+  border-radius: 30px;
+  outline: none;
+  width: 800px; 
+  transition: all 0.3s ease-in-out;
+}
+
+.search-input:focus {
+  border-color: #5e17eb;
+  box-shadow: 0 0 0 3px rgba(142, 82, 255, 0.2);
+}
+
+.search-button {
+  background-color: #8c52ff;
+  border: none;
+  padding: 12px 24px;
+  color: white;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.3s;
+}
+
+.search-button:hover {
+  background-color: #5e17eb;
+}
+
+.suggestion-list {
+  position: absolute;
+  top: 100%;            
+  left: 0;
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 4px;        
+  width: 50%;            
+  max-height: 200px;
+  overflow-y: auto;
+  list-style-type: none;
+  padding: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.suggestion-list li {
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.suggestion-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.calendar-client-wrapper {
+  display: flex;
+  gap: 4.5rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.calendar-box {
+  flex: 1;
+  min-width: 600px;
+  max-width: 850px; 
+  background-color: white;
+  padding: 1rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.employee-info-box {
+  background: #2d1c4e;
+  opacity: 0.9;
+  color: white;
+  padding: 20px;
+  border-radius: 20px;
+  width: 280px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  height: fit-content; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.employee-info-box h3 {
+  margin-bottom: 1rem;
+  font-size: 18px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 6px;
+}
+
+.employee-info-box p {
+  margin: 6px 0;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.tooltip {
+  position: absolute;
+  background: #5e17eb;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 10px;
+  z-index: 999;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.tooltip-header {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.tooltip-date {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.tooltip-reason {
+  font-size: 14px;
+}
+
+.error-text {
+  color: red;
+  font-weight: bold;
+}
+
+.loading-text {
+  color: #5e17eb;
+  font-weight: bold;
+}
