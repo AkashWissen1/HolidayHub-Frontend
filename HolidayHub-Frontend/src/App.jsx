@@ -12,6 +12,7 @@ import EmployeeDashboard from './pages/employee/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
 import EmployeeManagement from './pages/hr/EmployeeManagement';
+import AssignClient from './pages/hr/AssignClient';
 
 function App() {
   return (
@@ -76,6 +77,14 @@ function App() {
             element={
               <ProtectedRoute allowedRole="EMPLOYEE">
                 <EmployeeDashboard />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/hr/assign-client" 
+            element={
+              <ProtectedRoute allowedRole="HR">
+                <AssignClient />
               </ProtectedRoute>
             } 
           />

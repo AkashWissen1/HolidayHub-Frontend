@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { FaHome, FaUserTie, FaUsers, FaCalendarAlt, FaUserCheck, FaSearch } from "react-icons/fa";
+import { FaHome, FaUserTie, FaUsers, FaCalendarAlt, FaUserCheck, FaSearch, FaUserPlus } from "react-icons/fa";
 import "../styles/Sidebar.css";
 
 const Sidebar = () => {
@@ -46,8 +46,8 @@ const Sidebar = () => {
 
           {/* Assign Client */}
           <li>
-            <NavLink to="/assign-client" activeClassName="active">
-              <FaUserCheck className="icon" /> Assign Client
+            <NavLink to="/hr/assign-client" activeClassName="active">
+              <FaUserPlus className="icon" /> Assign Client
             </NavLink>
           </li>
         </ul>
