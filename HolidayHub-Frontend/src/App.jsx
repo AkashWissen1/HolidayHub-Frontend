@@ -12,6 +12,7 @@ import EmployeeDashboard from './pages/employee/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
 import EmployeeManagement from './pages/hr/EmployeeManagement';
+import HolidayManagement from './pages/hr/HolidayManagement';
 
 function App() {
   return (
@@ -44,6 +45,14 @@ function App() {
             element={
               <ProtectedRoute allowedRole="HR">
                 <EmployeeManagement />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/hr/holidays" 
+            element={
+              <ProtectedRoute allowedRole="HR">
+                <HolidayManagement/>
               </ProtectedRoute>
             } 
           />
