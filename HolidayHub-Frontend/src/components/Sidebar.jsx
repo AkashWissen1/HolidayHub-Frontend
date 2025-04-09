@@ -39,7 +39,7 @@ const Sidebar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/holiday-management" activeClassName="active">
+            <NavLink to="/hr/holidays" activeClassName="active">
               <FaCalendarAlt className="icon" /> Holiday Management
             </NavLink>
           </li>
