@@ -116,70 +116,198 @@
 
 /* Services Section */
 .services {
-  padding: 5rem 2rem;
+  padding: 4rem 2rem; /* Reduced padding */
   background-color: #f8f9fa;
 }
 
 .services h2 {
   text-align: center;
   color: #2c1053;
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem; /* Reduced margin */
   font-size: 2.5rem;
 }
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Reduced minmax width */
+  gap: 1.5rem; /* Reduced gap */
+  max-width: 1000px; /* Reduced max-width */
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .service-card {
   background: white;
-  padding: 2rem;
-  border-radius: 15px;
+  padding: 1.8rem 1.5rem; /* Reduced padding */
+  border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
 }
 
 .service-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-3px); /* Reduced hover lift */
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
 }
 
 .card-icon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 2.5rem; /* Reduced icon size */
+  margin-bottom: 1rem; /* Reduced margin */
 }
 
 .service-card h3 {
   color: #2c1053;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem; /* Reduced margin */
+  font-size: 1.3rem; /* Reduced font size */
 }
 
-/* About Section */
+.service-card p {
+  color: #666;
+  line-height: 1.5;
+  font-size: 0.95rem; /* Reduced font size */
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .services {
+    padding: 3rem 1rem;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Even smaller on mobile */
+    gap: 1rem;
+  }
+
+  .service-card {
+    padding: 1.5rem 1.2rem;
+  }
+
+  .card-icon {
+    font-size: 2rem;
+  }
+
+  .service-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .service-card p {
+    font-size: 0.9rem;
+  }
+}
+
+/* About Section Styles */
 .about {
-  padding: 5rem 2rem;
-  background-color: white;
+  padding: 6rem 2rem;
+  background-color: #ffffff;
 }
 
 .about-content {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-text {
+  flex: 1;
 }
 
 .about h2 {
   color: #2c1053;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-size: 2.5rem;
 }
 
+.about h3 {
+  color: #7a00ff;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
 .about p {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   line-height: 1.6;
   color: #555;
+  margin-bottom: 2rem;
+}
+
+.about-features {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.feature {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.feature-icon {
+  font-size: 2rem;
+  color: #7a00ff;
+  background: rgba(122, 0, 255, 0.1);
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+.feature-text h4 {
+  color: #2c1053;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.feature-text p {
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+.about-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  padding: 2rem 0;
+  border-top: 1px solid #eee;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #7a00ff;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  color: #666;
+  font-size: 1rem;
+}
+
+.about-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.about-image img:hover {
+  transform: translateY(-10px);
 }
 
 /* Contact Section */
@@ -204,14 +332,23 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .contact-form input,
 .contact-form textarea {
   padding: 1rem;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 8px;
   font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #7a00ff;
+  outline: none;
 }
 
 .contact-form textarea {
@@ -224,65 +361,88 @@
   color: white;
   border: none;
   padding: 1rem 2rem;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 1.1rem;
   transition: background-color 0.3s ease;
 }
 
-.submit-btn:hover {
+.submit-btn:hover:not(:disabled) {
   background-color: #5900cc;
 }
 
+.submit-btn:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+.success-message,
+.error-message {
+  text-align: center;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.success-message {
+  background-color: #e7f7ed;
+  color: #1d804d;
+  border: 1px solid #c3e6d1;
+}
+
+.error-message {
+  background-color: #fde8e8;
+  color: #c81e1e;
+  border: 1px solid #f5c2c2;
+}
+
 /* Responsive Design */
-@media (max-width: 768px) {
-  .hero {
-    height: 100vh;
-    padding-top: 80px;
-    overflow-x: hidden;
+@media (max-width: 968px) {
+  .about-content {
+    flex-direction: column-reverse;
+    gap: 3rem;
   }
 
-  .hero-content {
+  .about-image {
+    width: 100%;
+  }
+
+  .about-image img {
+    max-width: 80%;
+  }
+
+  .about-stats {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .stat {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about {
+    padding: 4rem 1rem;
+  }
+
+  .feature {
     flex-direction: column;
     text-align: center;
-    padding: 2rem 1rem;
-    overflow-x: hidden;
-    justify-content: center;
-  }
-
-  .hero-text {
-    padding-right: 0;
-    margin-bottom: 2rem;
     align-items: center;
   }
 
-  .hero-text h1 {
-    font-size: 2.5rem;
-    text-align: center;
+  .feature-icon {
+    margin-bottom: 1rem;
   }
 
-  .hero-text p {
-    font-size: 1.1rem;
+  .about h2 {
+    font-size: 2rem;
   }
 
-  .hero-image {
-    max-width: 100%;
-    margin-right: 0;
-    justify-content: center;
-  }
-
-  .hero-image img {
-    max-width: 100%;
-    transform: none;
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .services-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .about,
-  .contact {
-    padding: 3rem 1rem;
+  .about h3 {
+    font-size: 1.3rem;
   }
 }
