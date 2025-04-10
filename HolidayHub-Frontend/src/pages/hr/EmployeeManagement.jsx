@@ -21,11 +21,27 @@ const EmployeeManagement = () => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const [showProfileOverlay, setShowProfileOverlay] = useState(false);
+    const [username, setUsername] = useState("");
+    const [empId, setEmpId] = useState("");
+    const [emailId, setEmailId] = useState("");
+  
+    useEffect(() => {
+      const storedUsername = localStorage.getItem("employeeName");
+      const storedEmployeeId = localStorage.getItem("employeeId");
+      const storedEmailId = localStorage.getItem("email");
+  
+      if (storedUsername) setUsername(storedUsername);
+      if (storedEmployeeId) setEmpId(storedEmployeeId);
+      if (storedEmailId) setEmailId(storedEmailId);
+    }, []);
+  
+
   useEffect(() => {
     fetch(`${API_BASE_URL}`)
       .then((res) => res.json())
       .then((data) => {
-        // ✅ Show only those with designation "Employee"
+        
         const filtered = data.filter(emp => emp.designation === "Employee");
         setEmployees(filtered);
       })
@@ -116,13 +132,34 @@ const EmployeeManagement = () => {
       emp.email?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/login";
+  };
+
   return (
     <div
       className={`client-management-container ${
         showAddForm || showEditForm ? "blur-background" : ""
       }`}
     >
-      <DashboardHeader />
+      <DashboardHeader
+        onLogout={handleLogout}
+        onProfileClick={() => setShowProfileOverlay(true)}
+      />
+
+      {showProfileOverlay && (
+        <div className="overlay">
+          <div className="overlay-content">
+            <button className="close-btn" onClick={() => setShowProfileOverlay(false)}>X</button>
+            <div className="overlay-title">Profile Details</div>
+            <p><strong>Employee ID:</strong> {empId}</p>
+            <p><strong>Name:</strong> {username}</p>
+            <p><strong>Email ID:</strong> {emailId}</p>
+            <p><strong>Designation:</strong> HR</p>
+          </div>
+        </div>
+      )}
       <div className="client-management-content">
         <Sidebar />
         <div className="client-management">
@@ -210,8 +247,9 @@ const EmployeeManagement = () => {
                   <input
                     type="text"
                     name="designation"
-                    value={newEmployee.designation}
+                    value="Employee"
                     onChange={handleInputChange}
+                    disabled
                   />
 
                   <label>Email</label>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DashboardHeader from "../../components/DashboardHeader";
 import Sidebar from "../../components/Sidebar";
 import "../../styles/AssignClient.css";
@@ -10,6 +10,21 @@ const AssignClient = () => {
   });
   const [message, setMessage] = useState({ text: '', isError: false });
   const [isLoading, setIsLoading] = useState(false);
+
+  const [showProfileOverlay, setShowProfileOverlay] = useState(false);
+  const [username, setUsername] = useState("");
+  const [empId, setEmpId] = useState("");
+  const [emailId, setEmailId] = useState("");
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("employeeName");
+    const storedEmployeeId = localStorage.getItem("employeeId");
+    const storedEmailId = localStorage.getItem("email");
+
+    if (storedUsername) setUsername(storedUsername);
+    if (storedEmployeeId) setEmpId(storedEmployeeId);
+    if (storedEmailId) setEmailId(storedEmailId);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,9 +63,31 @@ const AssignClient = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/login";
+  };
+
   return (
     <div className="assign-client-container">
-      <DashboardHeader />
+      <DashboardHeader
+        onLogout={handleLogout}
+        onProfileClick={() => setShowProfileOverlay(true)}
+      />
+
+      {showProfileOverlay && (
+        <div className="overlay">
+          <div className="overlay-content">
+            <button className="close-btn" onClick={() => setShowProfileOverlay(false)}>X</button>
+            <div className="overlay-title">Profile Details</div>
+            <p><strong>Employee ID:</strong> {empId}</p>
+            <p><strong>Name:</strong> {username}</p>
+            <p><strong>Email ID:</strong> {emailId}</p>
+            <p><strong>Designation:</strong> HR</p>
+          </div>
+        </div>
+      )}
+
       <div className="assign-client-content">
         <Sidebar />
         <div className="assign-client-main">

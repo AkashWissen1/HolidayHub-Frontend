@@ -12,14 +12,26 @@ const HRDashboard = () => {
     employeeDistribution: []
   });
 
-  const employeeName = localStorage.getItem('employeeName');
+  const [showProfileOverlay, setShowProfileOverlay] = useState(false);
+  const [username, setUsername] = useState("");
+  const [empId, setEmpId] = useState("");
+  const [emailId, setEmailId] = useState("");
+
+  useEffect(() => {
+    const employeeName = localStorage.getItem("employeeName");
+    const storedEmployeeId = localStorage.getItem("employeeId");
+    const storedEmailId = localStorage.getItem("email");
+
+    if (employeeName) setUsername(employeeName);
+    if (storedEmployeeId) setEmpId(storedEmployeeId);
+    if (storedEmailId) setEmailId(storedEmailId);
+  }, []);
 
   useEffect(() => {
     // Fetch clients first
     fetch('http://localhost:8081/clients')
       .then(response => response.json())
       .then(clientsData => {
-        // Store clients data with initial count of 0
         const clientsMap = clientsData.reduce((acc, client) => {
           acc[client.id] = {
             clientId: client.id,
@@ -33,7 +45,6 @@ const HRDashboard = () => {
         fetch('http://localhost:8085/employees')
           .then(response => response.json())
           .then(employeesData => {
-            // Calculate employee distribution
             employeesData.forEach(employee => {
               if (clientsMap[employee.clientId]) {
                 clientsMap[employee.clientId].employeeCount++;
@@ -59,7 +70,7 @@ const HRDashboard = () => {
       .then(data => {
         const today = new Date();
         const upcoming = data.filter(holiday => new Date(holiday.holidayDate) >= today);
-        
+
         setDashboardStats(prev => ({
           ...prev,
           totalHolidays: data.length,
@@ -69,13 +80,38 @@ const HRDashboard = () => {
       .catch(error => console.error('Error fetching holidays:', error));
   }, []);
 
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/login";
+  };
+
   return (
     <div className="dashboard-container">
-      <DashboardHeader />
+      <DashboardHeader
+        username={username}
+        emailId={emailId}
+        empId={empId}
+        onLogout={handleLogout}
+        onProfileClick={() => setShowProfileOverlay(true)}
+      />
+
+      {showProfileOverlay && (
+        <div className="overlay">
+          <div className="overlay-content">
+            <button className="close-btn" onClick={() => setShowProfileOverlay(false)}>X</button>
+            <div className="overlay-title">Profile Details</div>
+            <p><strong>Employee ID:</strong> {empId}</p>
+            <p><strong>Name:</strong> {username}</p>
+            <p><strong>Email ID:</strong> {emailId}</p>
+            <p><strong>Designation:</strong> Employee</p>
+          </div>
+        </div>
+      )}
+
       <div className="dashboard-main">
         <Sidebar />
         <div className="dashboard-content">
-          <h1 className="greeting">Welcome, {employeeName}</h1>
+          <h1 className="greeting">Welcome, {username}</h1>
 
           <div className="analytics-grid">
             <div className="analytics-card">
@@ -120,7 +156,7 @@ const HRDashboard = () => {
                       <span className="employee-count">{item.employeeCount}</span>
                     </div>
                     <div className="distribution-bar">
-                      <div 
+                      <div
                         className="bar-fill"
                         style={{
                           width: `${(item.employeeCount / dashboardStats.totalEmployees * 100) || 0}%`,
@@ -132,6 +168,7 @@ const HRDashboard = () => {
                 ))}
               </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -140,4 +177,3 @@ const HRDashboard = () => {
 };
 
 export default HRDashboard;
-  

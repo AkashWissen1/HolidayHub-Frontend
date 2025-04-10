@@ -15,6 +15,21 @@ const ClientManagement = () => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const [showProfileOverlay, setShowProfileOverlay] = useState(false);
+  const [username, setUsername] = useState("");
+  const [empId, setEmpId] = useState("");
+  const [emailId, setEmailId] = useState("");
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("employeeName");
+    const storedEmployeeId = localStorage.getItem("employeeId");
+    const storedEmailId = localStorage.getItem("email");
+
+    if (storedUsername) setUsername(storedUsername);
+    if (storedEmployeeId) setEmpId(storedEmployeeId);
+    if (storedEmailId) setEmailId(storedEmailId);
+  }, []);
+
   useEffect(() => {
     fetch(`${API_BASE_URL}`)
       .then((response) => response.json())
@@ -49,7 +64,7 @@ const ClientManagement = () => {
 
   const updateClient = () => {
     const dto = {
-      clientId: editingClient.id, // ✅ fix: match backend DTO field
+      clientId: editingClient.id,
       clientName: editingClient.clientName,
       contactPerson: editingClient.contactPerson,
       contactEmail: editingClient.contactEmail
@@ -61,9 +76,7 @@ const ClientManagement = () => {
       body: JSON.stringify(dto),
     })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error("Update failed");
-        }
+        if (!response.ok) throw new Error("Update failed");
         return response.json();
       })
       .then((updatedClient) => {
@@ -84,13 +97,16 @@ const ClientManagement = () => {
         body: JSON.stringify({ clientId: id }),
       })
         .then((response) => {
-          if (!response.ok) {
-            throw new Error("Delete failed");
-          }
+          if (!response.ok) throw new Error("Delete failed");
           setClients(clients.filter((client) => client.id !== id));
         })
         .catch((error) => console.error("Error deleting client:", error));
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/login";
   };
 
   const filteredClients = clients.filter(
@@ -102,7 +118,24 @@ const ClientManagement = () => {
 
   return (
     <div className={`client-management-container ${showAddForm || showEditForm ? "blur-background" : ""}`}>
-      <DashboardHeader />
+      <DashboardHeader
+        onLogout={handleLogout}
+        onProfileClick={() => setShowProfileOverlay(true)}
+      />
+
+      {showProfileOverlay && (
+        <div className="overlay">
+          <div className="overlay-content">
+            <button className="close-btn" onClick={() => setShowProfileOverlay(false)}>X</button>
+            <div className="overlay-title">Profile Details</div>
+            <p><strong>Employee ID:</strong> {empId}</p>
+            <p><strong>Name:</strong> {username}</p>
+            <p><strong>Email ID:</strong> {emailId}</p>
+            <p><strong>Designation:</strong> HR</p>
+          </div>
+        </div>
+      )}
+
       <div className="client-management-content">
         <Sidebar />
         <div className="client-management">

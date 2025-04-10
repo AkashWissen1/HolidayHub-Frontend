@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import "../../styles/HolidayCalender.css";
-import logo from "../../assets/logo.svg";
 import Footer from "../../components/Footer";
+import Header from "../../components/DashboardHeader";
 
 const EmployeeDashboard = () => {
   const [username, setUsername] = useState("");
@@ -93,25 +93,10 @@ const EmployeeDashboard = () => {
       {/* Header */}
       <br></br><br></br><br></br>
       <header className="dashboard-header">
-        <div className="logo-container">
-          <img src={logo} alt="Holiday Hub Logo" className="logo-image" />
-        </div>
-        <div className="user-options">
-          <div className="profile-dropdown">
-            <button className="profile-btn">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                alt="Profile"
-                className="profile-icon"
-              />
-            </button>
-            <div className="dropdown-content">
-              <a onClick={() => setShowProfileOverlay(true)}>View Profile</a>
-              <a onClick={handleChangePassword}>Change Password</a>
-              <a onClick={handleLogout}>Logout</a>
-            </div>
-          </div>
-        </div>
+        <Header
+        onLogout={handleLogout}
+        onProfileClick={() => setShowProfileOverlay(true)}
+        />
       </header>
   
       {showProfileOverlay && (
