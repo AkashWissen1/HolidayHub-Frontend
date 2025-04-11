@@ -14,6 +14,8 @@ import './App.css';
 import EmployeeManagement from './pages/hr/EmployeeManagement';
 import AssignClient from './pages/hr/AssignClient';
 import HolidayManagement from './pages/hr/HolidayManagement';
+import HRManagement from './pages/admin/HRManagement';
+import EmpManagement from './pages/admin/EmpManagement';
 
 function App() {
   return (
@@ -78,6 +80,23 @@ function App() {
             element={
               <ProtectedRoute allowedRole="ADMIN">
                 <AdminDashboard />
+              </ProtectedRoute>
+            } 
+          />
+          
+          <Route 
+            path="/admin/hr-management" 
+            element={
+              <ProtectedRoute allowedRole="ADMIN">
+                <HRManagement/>
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/admin/employee-management" 
+            element={
+              <ProtectedRoute allowedRole="ADMIN">
+                <EmpManagement/>
               </ProtectedRoute>
             } 
           />
