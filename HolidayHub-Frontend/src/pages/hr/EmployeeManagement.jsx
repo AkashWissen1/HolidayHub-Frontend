@@ -12,7 +12,7 @@ const EmployeeManagement = () => {
   const [employees, setEmployees] = useState([]);
   const [newEmployee, setNewEmployee] = useState({
     employeeName: "",
-    designation: "",
+    designation: "Employee",
     email: "",
     password: "Wissen@123",
   });
@@ -22,30 +22,28 @@ const EmployeeManagement = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const [showProfileOverlay, setShowProfileOverlay] = useState(false);
-    const [username, setUsername] = useState("");
-    const [empId, setEmpId] = useState("");
-    const [emailId, setEmailId] = useState("");
-  
-    useEffect(() => {
-      const storedUsername = localStorage.getItem("employeeName");
-      const storedEmployeeId = localStorage.getItem("employeeId");
-      const storedEmailId = localStorage.getItem("email");
-  
-      if (storedUsername) setUsername(storedUsername);
-      if (storedEmployeeId) setEmpId(storedEmployeeId);
-      if (storedEmailId) setEmailId(storedEmailId);
-    }, []);
-  
+  const [username, setUsername] = useState("");
+  const [empId, setEmpId] = useState("");
+  const [emailId, setEmailId] = useState("");
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("employeeName");
+    const storedEmployeeId = localStorage.getItem("employeeId");
+    const storedEmailId = localStorage.getItem("email");
+
+    if (storedUsername) setUsername(storedUsername);
+    if (storedEmployeeId) setEmpId(storedEmployeeId);
+    if (storedEmailId) setEmailId(storedEmailId);
+  }, []);
 
   useEffect(() => {
     fetch(`${API_BASE_URL}`)
       .then((res) => res.json())
       .then((data) => {
-        
-        const filtered = data.filter(emp => emp.designation === "Employee");
+        const filtered = data.filter((emp) => emp.designation === "Employee");
         setEmployees(filtered);
       })
-      .catch((err) => console.error("Error fetching employees:", err));
+      .catch((err) => console.error("Error fetching Employees:", err));
   }, []);
 
   const handleInputChange = (e) => {
@@ -62,7 +60,7 @@ const EmployeeManagement = () => {
 
     const payload = {
       ...newEmployee,
-      clientId: null, // Send clientId as null
+      clientId: null,
     };
 
     fetch(`${API_BASE_URL}`, {
@@ -77,13 +75,13 @@ const EmployeeManagement = () => {
         }
         setNewEmployee({
           employeeName: "",
-          designation: "",
+          designation: "Employee",
           email: "",
           password: "Wissen@123",
         });
         setShowAddForm(false);
       })
-      .catch((err) => console.error("Error adding employee:", err));
+      .catch((err) => console.error("Error adding Employee:", err));
   };
 
   const updateEmployee = () => {
@@ -102,18 +100,19 @@ const EmployeeManagement = () => {
       .then((res) => res.json())
       .then((updated) => {
         const updatedList = employees.map((emp) =>
-          emp.employeeId === editingEmployee.employeeId ? { ...emp, ...updatedBody } : emp
+          emp.employeeId === editingEmployee.employeeId
+            ? { ...emp, ...updatedBody }
+            : emp
         );
-        // Only keep employees with designation "Employee"
-        setEmployees(updatedList.filter(emp => emp.designation === "Employee"));
+        setEmployees(updatedList.filter((emp) => emp.designation === "Employee"));
         setEditingEmployee(null);
         setShowEditForm(false);
       })
-      .catch((err) => console.error("Error updating employee:", err));
+      .catch((err) => console.error("Error updating Employee:", err));
   };
 
   const deleteEmployee = (id) => {
-    if (window.confirm("Are you sure you want to delete this employee?")) {
+    if (window.confirm("Are you sure you want to delete this Employee?")) {
       fetch(`${API_BASE_URL}/${id}`, {
         method: "DELETE",
       })
@@ -121,7 +120,7 @@ const EmployeeManagement = () => {
           if (!res.ok) throw new Error("Delete failed");
           setEmployees(employees.filter((emp) => emp.employeeId !== id));
         })
-        .catch((err) => console.error("Error deleting employee:", err));
+        .catch((err) => console.error("Error deleting Employee:", err));
     }
   };
 
@@ -151,12 +150,25 @@ const EmployeeManagement = () => {
       {showProfileOverlay && (
         <div className="overlay">
           <div className="overlay-content">
-            <button className="close-btn" onClick={() => setShowProfileOverlay(false)}>X</button>
+            <button
+              className="close-btn"
+              onClick={() => setShowProfileOverlay(false)}
+            >
+              X
+            </button>
             <div className="overlay-title">Profile Details</div>
-            <p><strong>Employee ID:</strong> {empId}</p>
-            <p><strong>Name:</strong> {username}</p>
-            <p><strong>Email ID:</strong> {emailId}</p>
-            <p><strong>Designation:</strong> HR</p>
+            <p>
+              <strong>Employee ID:</strong> {empId}
+            </p>
+            <p>
+              <strong>Name:</strong> {username}
+            </p>
+            <p>
+              <strong>Email ID:</strong> {emailId}
+            </p>
+            <p>
+              <strong>Designation:</strong> Admin
+            </p>
           </div>
         </div>
       )}
@@ -223,13 +235,12 @@ const EmployeeManagement = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5">No employees found.</td>
+                  <td colSpan="5">No Employees found.</td>
                 </tr>
               )}
             </tbody>
           </table>
 
-          {/* Add Modal */}
           {showAddForm && (
             <div className="modal-overlay">
               <div className="modal">
@@ -282,7 +293,6 @@ const EmployeeManagement = () => {
             </div>
           )}
 
-          {/* Edit Modal */}
           {showEditForm && editingEmployee && (
             <div className="modal-overlay">
               <div className="modal">
