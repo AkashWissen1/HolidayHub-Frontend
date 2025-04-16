@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DashboardHeader from "../../components/DashboardHeader";
 import Sidebar from "../../components/Sidebar";
 import "../../styles/AssignClient.css";
+import Footer from '../../components/Footer';
 
 const AssignClient = () => {
   const [formData, setFormData] = useState({
@@ -141,6 +142,7 @@ const AssignClient = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

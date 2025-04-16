@@ -9,6 +9,7 @@ import Header from "../../components/DashboardHeader";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import logo from "../../assets/logo.png";
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 const API_BASE_URL = "http://localhost:8084/hr/search/client";
 
@@ -80,6 +81,7 @@ const ClientSearch = () => {
     const clientId = clientMap[name];
     setLoading(true);
     setError("");
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     try {
       const response = await fetch(`${API_BASE_URL}/${name}`);
@@ -94,6 +96,7 @@ const ClientSearch = () => {
 
       setHolidays(formattedHolidays);
       fetchClientDetails(clientId);
+      await delay(2000)
     } catch (err) {
       setHolidays([]);
       setClientDetails({});
@@ -238,7 +241,15 @@ const ClientSearch = () => {
           </div>
 
           {loading ? (
-            <p className="loading-text">Loading holidays...</p>
+            <div className="search-overlay">
+
+            <DotLottieReact
+                  src="https://lottie.host/fcad628a-294a-4529-aa6c-049afc0be3fb/jCAhhpXfjd.lottie"
+                  loop
+                  autoplay
+                  style={{ width: '400px', height: '400px' }} 
+                />
+          </div>
           ) : error ? (
             <p className="error-text">{error}</p>
           ) : holidays.length > 0 ? (
@@ -250,6 +261,9 @@ const ClientSearch = () => {
                   initialView="dayGridMonth"
                   events={holidays}
                   eventContent={() => null}
+                  buttonText={{
+                    today: "Today"
+                  }}
                   eventDidMount={(info) => {
                     info.el.style.cursor = "pointer";
                     info.el.addEventListener("mouseenter", () => {
