@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/HRDashboard.css';
 import DashboardHeader from '../../components/DashboardHeader';
 import Sidebar from '../../components/Sidebar';
+import Footer from '../../components/Footer';
 
 const HRDashboard = () => {
   const [dashboardStats, setDashboardStats] = useState({
@@ -172,6 +173,7 @@ const HRDashboard = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

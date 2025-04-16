@@ -10,6 +10,7 @@ const EmployeeDashboard = () => {
   const [employeeId, setEmployeeId] = useState("");
   const [clientId, setClientId] = useState(null);
   const [emailId, setEmailId] = useState("");
+  const [designation, setDesignation] = useState("");
   const [clientDetails, setClientDetails] = useState(null);
   const [holidays, setHolidays] = useState([]);
   const [holidayDates, setHolidayDates] = useState([]);
@@ -24,11 +25,13 @@ const EmployeeDashboard = () => {
     const storedEmployeeId = localStorage.getItem("employeeId");
     const storedClientId = localStorage.getItem("clientId");
     const storedemailId = localStorage.getItem("email");
+    const storedDesignation = localStorage.getItem("UserRole");
 
     if (storedUsername) setUsername(storedUsername);
     if (storedEmployeeId) setEmployeeId(storedEmployeeId);
     if (storedClientId) setClientId(storedClientId);
     if (storedemailId) setEmailId(storedemailId);
+    if (storedDesignation) setDesignation(storedDesignation);
   }, []);
 
   const upcomingHolidayCount = holidays.filter((holiday) => {
@@ -84,9 +87,8 @@ const EmployeeDashboard = () => {
     window.location.href = "/login";
   };
 
-  const handleChangePassword = () => {
-    window.location.href = "/change-password";
-  };
+  
+    
 
   return (
     <div className="dashboard-container">
@@ -108,7 +110,7 @@ const EmployeeDashboard = () => {
             <p><strong>Name:</strong> {username}</p>
             <p><strong>Email ID:</strong> {emailId}</p>
             <p><strong>Client:</strong> {clientDetails?.clientName}</p>
-            <p><strong>Designation:</strong> Employee</p>
+            <p><strong>Designation:</strong> {designation}</p>
           </div>
         </div>
       )}
@@ -125,11 +127,15 @@ const EmployeeDashboard = () => {
             <p className="error">{error}</p>
           ) : (
             <div className="calendar-container">
+              
               <FullCalendar
                 plugins={[dayGridPlugin]}
                 initialView="dayGridMonth"
                 events={holidays}
                 eventContent={() => null}
+                buttonText={{
+                  today: "Today"
+                }}
                 eventDidMount={(info) => {
                   info.el.style.cursor = "pointer";
                   info.el.addEventListener("mouseenter", () => {
@@ -167,7 +173,7 @@ const EmployeeDashboard = () => {
                 </div>
               )}
             </div>
-          )}
+          )} 
         </div>
         <div className="upcoming-holiday-box">
           <h2>Upcoming Holidays</h2>

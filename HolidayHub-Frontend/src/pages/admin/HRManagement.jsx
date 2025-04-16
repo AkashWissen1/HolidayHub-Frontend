@@ -167,7 +167,7 @@ const HRManagement = () => {
               <strong>Email ID:</strong> {emailId}
             </p>
             <p>
-              <strong>Designation:</strong> HR
+              <strong>Designation:</strong> Admin
             </p>
           </div>
         </div>
