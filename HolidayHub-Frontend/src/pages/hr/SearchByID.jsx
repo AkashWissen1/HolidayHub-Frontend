@@ -66,7 +66,7 @@ const EmployeeSearch = () => {
       setHolidays(formattedHolidays);
 
       EmployeeDetails(trimmedId);
-      await delay(2000)
+      await delay(1000)
     } catch (err) {
       setHolidays([]);
       setError(err.message || "Something went wrong.");

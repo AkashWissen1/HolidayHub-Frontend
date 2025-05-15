@@ -96,7 +96,7 @@ const ClientSearch = () => {
 
       setHolidays(formattedHolidays);
       fetchClientDetails(clientId);
-      await delay(2000)
+      await delay(1000)
     } catch (err) {
       setHolidays([]);
       setClientDetails({});

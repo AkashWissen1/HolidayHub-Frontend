@@ -47,13 +47,15 @@ const EmployeeDashboard = () => {
       return holidayDate >= today;
     })
     .sort((a, b) => new Date(a.date) - new Date(b.date))
-     // Show only the next 5 upcoming holidays
+     
 
   useEffect(() => {
     if (clientId) {
       fetchHolidays(clientId);
       fetchClientDetails(clientId);
-    }
+    }else {
+    setLoading(false);
+  }
   }, [clientId]);
 
   const fetchClientDetails = async (clientId) => {
@@ -63,32 +65,42 @@ const EmployeeDashboard = () => {
       const data = await response.json();
       setClientDetails(data);
     } catch (err) {
+      setLoading(false);
       setError(err.message);
     }
   };
 
-  const fetchHolidays = async (clientId) => {
-    try {
-      setLoading(true);
-      const response = await fetch(`http://localhost:8888/holidays/client/${clientId}`);
-      if (!response.ok) throw new Error("Failed to fetch holidays");
-      const data = await response.json();
+ const fetchHolidays = async (clientId) => {
+  try {
+    setLoading(true); 
+    const response = await fetch(`http://localhost:8888/holidays/client/${clientId}`);
+    if (!response.ok) throw new Error("Failed to fetch holidays");
 
-      const formattedHolidays = data.map(holiday => ({
+    const data = await response.json();
+
+    if (Array.isArray(data) && data.length === 0) {
+      setHolidays([]); 
+      setHolidayDates([]);
+    } else {
+      const formattedHolidays = data.map((holiday) => ({
         title: holiday.holidayName,
         date: holiday.holidayDate,
         reason: holiday.holidayName,
         isHoliday: true,
       }));
-
       setHolidays(formattedHolidays);
-      setHolidayDates(data.map(h => h.holidayDate));
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+      setHolidayDates(data.map((h) => h.holidayDate));
     }
-  };
+
+  } catch (err) {
+    setError(err.message);
+    setHolidays([]);
+    setHolidayDates([]);
+  } finally {
+    setLoading(false); // ensure loading stops
+  }
+};
+
 
   const handleLogout = () => {
     localStorage.clear();
@@ -117,7 +129,7 @@ const EmployeeDashboard = () => {
             <p><strong>Employee ID:</strong> {employeeId}</p>
             <p><strong>Name:</strong> {username}</p>
             <p><strong>Email ID:</strong> {emailId}</p>
-            <p><strong>Client:</strong> {clientDetails?.clientName}</p>
+            <p><strong>Client:</strong> {clientDetails?.clientName || "-"}</p>
             <p><strong>Designation:</strong> {designation}</p>
           </div>
         </div>
@@ -133,6 +145,8 @@ const EmployeeDashboard = () => {
             <p>Loading holidays...</p>
           ) : error ? (
             <p className="error">{error}</p>
+          ) : holidays.length === 0 ? (
+            <p className="error">No holidays found </p>
           ) : (
             <div className="calendar-container">
               
