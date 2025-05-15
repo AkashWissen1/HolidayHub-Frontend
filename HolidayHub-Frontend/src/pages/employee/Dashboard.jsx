@@ -25,7 +25,7 @@ const EmployeeDashboard = () => {
     const storedEmployeeId = localStorage.getItem("employeeId");
     const storedClientId = localStorage.getItem("clientId");
     const storedemailId = localStorage.getItem("email");
-    const storedDesignation = localStorage.getItem("UserRole");
+    const storedDesignation = localStorage.getItem("userRole");
 
     if (storedUsername) setUsername(storedUsername);
     if (storedEmployeeId) setEmployeeId(storedEmployeeId);

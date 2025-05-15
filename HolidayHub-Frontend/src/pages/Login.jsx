@@ -52,7 +52,7 @@ const Login = () => {
     }
 
     setIsLoading(true);
-    console.log('Sending login DTO:', loginDto);
+    setErrors({});
 
     try {
       const response = await fetch('http://localhost:8083/auth/login', {
@@ -63,70 +63,100 @@ const Login = () => {
         body: JSON.stringify(loginDto),
       });
 
-      // First check if the response is ok
-      if (response.ok) {
-        let userData;
-        try {
-          userData = await response.json();
-        } catch (parseError) {
-          setErrors({ api: 'Username or password is incorrect' });
-          return;
-        }
+      let responseData;
+      try {
+        // Try to parse as JSON first
+        responseData = await response.json();
+      } catch (parseError) {
+        // If not JSON, get as text
+        const text = await response.text();
+        responseData = { message: text || 'Unknown error occurred' };
+      }
 
-        console.log('Received user data:', userData);
-        
-        const designation = userData.designation;
+      // Log the response for debugging
+      console.log('Login response:', response.status, responseData);
+
+      if (response.ok) {
+        // Handle successful login
+        const designation = responseData.designation;
         
         localStorage.setItem('userRole', designation.trim().toUpperCase());
-        localStorage.setItem('employeeName', userData.employeeName);
-        localStorage.setItem('employeeId', userData.id);
-        localStorage.setItem('email', userData.email);
-        if (userData.clientId) {
-          localStorage.setItem('clientId', userData.clientId);
+        localStorage.setItem('employeeName', responseData.employeeName);
+        localStorage.setItem('employeeId', responseData.id);
+        localStorage.setItem('email', responseData.email);
+        if (responseData.clientId) {
+          localStorage.setItem('clientId', responseData.clientId);
         }
         
         switch(designation.trim().toUpperCase()) {
-          case 'HR':
-            console.log('Navigating to HR dashboard');
-            navigate('/hr/dashboard');
-            break;
           case 'ADMIN':
-            console.log('Navigating to Admin dashboard');
             navigate('/admin/dashboard');
             break;
-          case 'EMPLOYEE':
-            console.log('Navigating to Employee dashboard');
-            navigate('/employee/dashboard');
+          case 'HR':
+            navigate('/hr/dashboard');
             break;
           default:
-            console.error('Invalid designation:', designation);
-            setErrors({ api: 'Invalid designation received from server' });
+            navigate('/employee/dashboard');
         }
       } else {
-        // Handle different HTTP status codes
-        switch (response.status) {
-          case 401:
-            setErrors({ api: 'Invalid email or password' });
-            break;
-          case 403:
-            setErrors({ api: 'Account is locked. Please contact administrator' });
-            break;
-          case 404:
-            setErrors({ api: 'Account not found' });
-            break;
-          default:
-            // Try to get error message from response
-            try {
-              const errorData = await response.text();
-              setErrors({ api: errorData || 'Login failed. Please try again.' });
-            } catch (parseError) {
-              setErrors({ api: 'Login failed. Please try again.' });
-            }
+        // Handle error responses with user-friendly messages
+        
+        // Check for specific error messages in the response that indicate auth failures
+        if (response.status === 500 && 
+            (responseData.message?.toLowerCase().includes('invalid') || 
+             responseData.error?.toLowerCase().includes('invalid') ||
+             responseData.message?.toLowerCase().includes('password') ||
+             responseData.error?.toLowerCase().includes('password') ||
+             responseData.message?.toLowerCase().includes('credentials') ||
+             responseData.error?.toLowerCase().includes('credentials'))) {
+          
+          setErrors({ api: 'Invalid email or password. Please try again.' });
+        } else {
+          // Handle other status codes
+          switch (response.status) {
+            case 400:
+              setErrors({ 
+                api: responseData.message || 'Invalid request. Please check your information.' 
+              });
+              break;
+            case 401:
+              setErrors({ api: 'Invalid email or password. Please try again.' });
+              break;
+            case 403:
+              setErrors({ api: 'Your account is locked. Please contact an administrator.' });
+              break;
+            case 404:
+              setErrors({ api: 'Account not found. Please check your email address.' });
+              break;
+            case 500:
+              setErrors({ 
+                api: 'Username or Password is incorrect. Please try again.' 
+              });
+              break;
+            default:
+              setErrors({ 
+                api: responseData.message || 'Login failed. Please try again later.' 
+              });
+          }
         }
       }
     } catch (error) {
       console.error('Login error:', error);
-      setErrors({ api: 'Network error. Please check your connection and try again.' });
+      
+      // Network or connection errors
+      if (error.name === 'TypeError' && error.message.includes('NetworkError')) {
+        setErrors({ 
+          api: 'Cannot connect to the server. Please check your internet connection.' 
+        });
+      } else if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+        setErrors({ 
+          api: 'Server is unreachable. Please try again later or contact IT support.' 
+        });
+      } else {
+        setErrors({ 
+          api: 'An unexpected error occurred. Please try again or contact support.' 
+        });
+      }
     } finally {
       setIsLoading(false);
     }
