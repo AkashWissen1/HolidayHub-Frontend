@@ -40,7 +40,7 @@ const EmpManagement = () => {
     fetch(`${API_BASE_URL}`)
       .then((res) => res.json())
       .then((data) => {
-        const filtered = data.filter((emp) => emp.designation === "Employee");
+        const filtered = data.filter((emp) => emp.designation != "Admin" && emp.designation != "HR");
         setEmployees(filtered);
       })
       .catch((err) => console.error("Error fetching Employees:", err));
