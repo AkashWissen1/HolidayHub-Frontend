@@ -283,7 +283,7 @@ const EmployeeSearch = () => {
                 <p><strong>Name:</strong> {employeeDetails.employeeName}</p>
                 <p><strong>Email ID:</strong> {employeeDetails.email}</p>
                 <p><strong>Client:</strong> {clientDetails.clientName}</p>
-                <p><strong>Designation:</strong> Employee</p>
+                <p><strong>Designation:</strong> {employeeDetails.designation}</p>
               </div>
             </div>
           ) : null}

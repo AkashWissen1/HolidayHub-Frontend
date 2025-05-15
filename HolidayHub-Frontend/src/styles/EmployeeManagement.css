@@ -208,6 +208,29 @@ td {
     outline: none;
 }
 
+.modal-form input:focus {
+  border-color: #7a42f4;
+  outline: none;
+}
+
+.modal-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.modal-form select:focus {
+  border-color: #7a42f4;
+  outline: none;
+}
+
+
 /* Buttons */
 .save-btn {
     background-color: #7a00ff;

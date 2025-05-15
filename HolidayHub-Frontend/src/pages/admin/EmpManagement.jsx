@@ -12,7 +12,7 @@ const EmpManagement = () => {
   const [employees, setEmployees] = useState([]);
   const [newEmployee, setNewEmployee] = useState({
     employeeName: "",
-    designation: "Employee",
+    designation: "",
     email: "",
     password: "Wissen@123",
   });
