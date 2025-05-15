@@ -15,10 +15,12 @@
 
   
   .upcoming-holiday-box {
-    width: 250px;
-    height: 250px;
+    width: 450px;
+    height: auto;
+    min-height: 250px;
+    max-height: 1000px;
     padding: 20px;
-    margin-top: 200px;
+    margin-top: 120px;
     margin-right: 70px;
     background-color: white;
     border: 2px solid #e0e0e0;
@@ -27,11 +29,24 @@
     transition: transform 0.2s ease;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     text-align: center;
+    overflow-y: auto;
   }
 
+  .upcoming-holiday-box .icon {
+    font-size: 32px;
+    margin: 10px 0;
+  }
+
+  .upcoming-holiday-box p {
+    margin: 10px 0 15px 0;
+    font-size: 38px;
+    font-weight: bold;
+    color: #2c1053;
+  }
+  
   .upcoming-holiday-box h2 {
     font-size: 20px;
     margin-bottom: 10px;
@@ -324,4 +339,51 @@
   .close-btn:hover {
     color: darkred;
   }
+  
+/* Add these styles for the upcoming holidays list */
+.upcoming-holidays-list {
+  width: 100%;
+  margin-top: 15px;
+  text-align: left;
+}
+
+.upcoming-holidays-list h3 {
+  font-size: 16px;
+  color: #2c1053;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.upcoming-holidays-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.upcoming-holidays-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px dashed #f0f0f0;
+  font-size: 14px;
+  gap: 15px;
+}
+
+.upcoming-holidays-list li:last-child {
+  border-bottom: none;
+}
+
+.holiday-date {
+  font-weight: bold;
+  color: #7F00FF;
+  min-width: 70px;
+}
+
+.holiday-name {
+  color: #333;
+  word-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
   

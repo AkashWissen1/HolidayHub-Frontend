@@ -40,6 +40,14 @@ const EmployeeDashboard = () => {
     return holidayDate >= today;
   }).length;
   
+  const upcomingHolidaysList = holidays
+    .filter((holiday) => {
+      const today = new Date();
+      const holidayDate = new Date(holiday.date);
+      return holidayDate >= today;
+    })
+    .sort((a, b) => new Date(a.date) - new Date(b.date))
+     // Show only the next 5 upcoming holidays
 
   useEffect(() => {
     if (clientId) {
@@ -177,8 +185,26 @@ const EmployeeDashboard = () => {
         </div>
         <div className="upcoming-holiday-box">
           <h2>Upcoming Holidays</h2>
-          <span className="icon">🏖️</span>
           <p>{upcomingHolidayCount}</p>
+          
+          {upcomingHolidayCount > 0 && (
+            <div className="upcoming-holidays-list">
+              <h3>Next Holidays</h3>
+              <ul>
+                {upcomingHolidaysList.map((holiday, index) => (
+                  <li key={index}>
+                    <span className="holiday-date">
+                      {new Date(holiday.date).toLocaleDateString('en-US', { 
+                        month: 'short', 
+                        day: 'numeric' 
+                      })}
+                    </span>
+                    <span className="holiday-name">{holiday.title}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
         </div>
       </main>
