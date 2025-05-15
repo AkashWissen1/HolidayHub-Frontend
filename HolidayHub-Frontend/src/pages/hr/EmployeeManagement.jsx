@@ -6,7 +6,7 @@ import "../../styles/EmployeeManagement.css";
 import DashboardHeader from "../../components/DashboardHeader";
 import { FaEdit, FaTrash, FaPlus, FaSearch, FaSort } from "react-icons/fa";
 
-const API_BASE_URL = "http://localhost:8085/employees";
+const API_BASE_URL = "http://localhost:8888/employees";
 
 const EmployeeManagement = () => {
   const [employees, setEmployees] = useState([]);
@@ -167,7 +167,7 @@ const EmployeeManagement = () => {
               <strong>Email ID:</strong> {emailId}
             </p>
             <p>
-              <strong>Designation:</strong> Admin
+              <strong>Designation:</strong> HR
             </p>
           </div>
         </div>

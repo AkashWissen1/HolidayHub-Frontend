@@ -30,7 +30,7 @@ const HRDashboard = () => {
 
   useEffect(() => {
     // Fetch clients first
-    fetch('http://localhost:8081/clients')
+    fetch('http://localhost:8888/clients')
       .then(response => response.json())
       .then(clientsData => {
         const clientsMap = clientsData.reduce((acc, client) => {
@@ -43,7 +43,7 @@ const HRDashboard = () => {
         }, {});
 
         // Fetch all employees
-        fetch('http://localhost:8085/employees')
+        fetch('http://localhost:8888/employees')
           .then(response => response.json())
           .then(employeesData => {
             employeesData.forEach(employee => {
@@ -66,7 +66,7 @@ const HRDashboard = () => {
       .catch(error => console.error('Error fetching clients:', error));
 
     // Fetch holidays
-    fetch('http://localhost:8082/holidays')
+    fetch('http://localhost:8888/holidays')
       .then(response => response.json())
       .then(data => {
         const today = new Date();
@@ -104,7 +104,7 @@ const HRDashboard = () => {
             <p><strong>Employee ID:</strong> {empId}</p>
             <p><strong>Name:</strong> {username}</p>
             <p><strong>Email ID:</strong> {emailId}</p>
-            <p><strong>Designation:</strong> Employee</p>
+            <p><strong>Designation:</strong> HR</p>
           </div>
         </div>
       )}

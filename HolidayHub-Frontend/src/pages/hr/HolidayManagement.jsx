@@ -5,8 +5,8 @@ import Footer from "../../components/Footer";
 import "../../styles/ClientManagement.css";
 import { FaEdit, FaTrash, FaPlus, FaSearch } from "react-icons/fa";
 
-const CLIENT_API = "http://localhost:8081/clients";
-const HOLIDAY_API = "http://localhost:8082/holidays";
+const CLIENT_API = "http://localhost:8888/clients";
+const HOLIDAY_API = "http://localhost:8888/holidays";
 
 const HolidayManagement = () => {
   const [clients, setClients] = useState([]);

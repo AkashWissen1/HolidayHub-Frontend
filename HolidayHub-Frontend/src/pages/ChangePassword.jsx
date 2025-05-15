@@ -56,7 +56,7 @@ const ChangePassword = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:8083/auth/changepassword', {
+      const response = await fetch('http://localhost:8888/auth/changepassword', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -5,7 +5,7 @@ import Sidebar from "../../components/Sidebar";
 import "../../styles/ClientManagement.css";
 import { FaEdit, FaTrash, FaPlus, FaSearch, FaSort } from "react-icons/fa";
 
-const API_BASE_URL = "http://localhost:8081/clients";
+const API_BASE_URL = "http://localhost:8888/clients";
 
 const ClientManagement = () => {
   const [clients, setClients] = useState([]);

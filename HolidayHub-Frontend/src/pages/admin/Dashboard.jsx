@@ -30,7 +30,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     // Fetch Clients
-    fetch('http://localhost:8081/clients')
+    fetch('http://localhost:8888/clients')
       .then(response => response.json())
       .then(clientsData => {
         const clientsMap = clientsData.reduce((acc, client) => {
@@ -43,7 +43,7 @@ const AdminDashboard = () => {
         }, {});
 
         // Fetch Employees
-        fetch('http://localhost:8085/employees')
+        fetch('http://localhost:8888/employees')
           .then(response => response.json())
           .then(employeesData => {
             employeesData.forEach(employee => {
@@ -66,7 +66,7 @@ const AdminDashboard = () => {
       .catch(error => console.error('Error fetching clients:', error));
 
     // Fetch Holidays
-    fetch('http://localhost:8082/holidays')
+    fetch('http://localhost:8888/holidays')
       .then(response => response.json())
       .then(data => {
         const today = new Date();

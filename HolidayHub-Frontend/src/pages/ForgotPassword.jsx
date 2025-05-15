@@ -73,7 +73,7 @@ const ForgotPassword = () => {
 
     try {
       // First, verify the email and ID with backend
-      const response = await fetch('http://localhost:8083/auth/forgetpassword', {
+      const response = await fetch('http://localhost:8888/auth/forgetpassword', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

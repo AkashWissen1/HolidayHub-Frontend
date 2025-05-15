@@ -25,7 +25,7 @@ const EmployeeDashboard = () => {
     const storedEmployeeId = localStorage.getItem("employeeId");
     const storedClientId = localStorage.getItem("clientId");
     const storedemailId = localStorage.getItem("email");
-    const storedDesignation = localStorage.getItem("UserRole");
+    const storedDesignation = localStorage.getItem("userRole");
 
     if (storedUsername) setUsername(storedUsername);
     if (storedEmployeeId) setEmployeeId(storedEmployeeId);
@@ -50,7 +50,7 @@ const EmployeeDashboard = () => {
 
   const fetchClientDetails = async (clientId) => {
     try {
-      const response = await fetch(`http://localhost:8081/clients/${clientId}`);
+      const response = await fetch(`http://localhost:8888/clients/${clientId}`);
       if (!response.ok) throw new Error("Failed to fetch client details");
       const data = await response.json();
       setClientDetails(data);
@@ -62,7 +62,7 @@ const EmployeeDashboard = () => {
   const fetchHolidays = async (clientId) => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:8082/holidays/client/${clientId}`);
+      const response = await fetch(`http://localhost:8888/holidays/client/${clientId}`);
       if (!response.ok) throw new Error("Failed to fetch holidays");
       const data = await response.json();
 

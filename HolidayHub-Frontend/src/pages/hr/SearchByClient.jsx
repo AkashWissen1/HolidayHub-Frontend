@@ -11,7 +11,7 @@ import autoTable from "jspdf-autotable";
 import logo from "../../assets/logo.png";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
-const API_BASE_URL = "http://localhost:8084/hr/search/client";
+const API_BASE_URL = "http://localhost:8888/hr/search/client";
 
 const ClientSearch = () => {
   const [clientName, setClientName] = useState("");
@@ -38,7 +38,7 @@ const ClientSearch = () => {
     if (storedEmailId) setEmailId(storedEmailId);
 
     // Fetch all clients (names and IDs)
-    fetch("http://localhost:8081/clients")
+    fetch("http://localhost:8888/clients")
       .then((res) => res.json())
       .then((data) => {
         const map = {};
@@ -107,7 +107,7 @@ const ClientSearch = () => {
 
   const fetchClientDetails = async (clientId) => {
     try {
-      const response = await fetch(`http://localhost:8081/clients/${clientId}`);
+      const response = await fetch(`http://localhost:8888/clients/${clientId}`);
       if (!response.ok) throw new Error("Failed to fetch client details");
       const clientData = await response.json();
       setClientDetails(clientData);

@@ -12,7 +12,7 @@ import logo from "../../assets/logo.png";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 
-const API_BASE_URL = "http://localhost:8084/hr/search/employee";
+const API_BASE_URL = "http://localhost:8888/hr/search/employee";
 
 const EmployeeSearch = () => {
   const [employeeId, setEmployeeId] = useState("");
@@ -77,7 +77,7 @@ const EmployeeSearch = () => {
   const EmployeeDetails = async (employeeId) => {
     try { 
     
-      const response = await fetch(`http://localhost:8085/employees/${employeeId}`);
+      const response = await fetch(`http://localhost:8888/employees/${employeeId}`);
       if (!response.ok) throw new Error("Employee details not found."); 
 
       const employeeData = await response.json();
@@ -85,7 +85,7 @@ const EmployeeSearch = () => {
 
       console.log("Employee Details:", employeeData);
 
-      const response2 = await fetch(`http://localhost:8081/clients/${employeeData.clientId}`);
+      const response2 = await fetch(`http://localhost:8888/clients/${employeeData.clientId}`);
       if (!response2.ok) throw new Error("Failed to fetch client details");
       const clientData = await response2.json();
       setClientDetails(clientData);
