@@ -12,7 +12,7 @@ const EmployeeManagement = () => {
   const [employees, setEmployees] = useState([]);
   const [newEmployee, setNewEmployee] = useState({
     employeeName: "",
-    designation: "Employee",
+    designation: "Associate Software Engineer",
     email: "",
     password: "Wissen@123",
   });
@@ -40,7 +40,7 @@ const EmployeeManagement = () => {
     fetch(`${API_BASE_URL}`)
       .then((res) => res.json())
       .then((data) => {
-        const filtered = data.filter((emp) => emp.designation != "Admin" && emp.designation != "HR");
+        const filtered = data.filter((emp) => emp.designation !== "Admin" && emp.designation !== "HR");
         setEmployees(filtered);
       })
       .catch((err) => console.error("Error fetching Employees:", err));
@@ -70,12 +70,10 @@ const EmployeeManagement = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.designation === "Employee") {
-          setEmployees([...employees, data]);
-        }
+        setEmployees([...employees, data]);
         setNewEmployee({
           employeeName: "",
-          designation: "Employee",
+          designation: "Associate Software Engineer",
           email: "",
           password: "Wissen@123",
         });
@@ -104,7 +102,7 @@ const EmployeeManagement = () => {
             ? { ...emp, ...updatedBody }
             : emp
         );
-        setEmployees(updatedList.filter((emp) => emp.designation === "Employee"));
+        setEmployees(updatedList);
         setEditingEmployee(null);
         setShowEditForm(false);
       })
@@ -135,6 +133,15 @@ const EmployeeManagement = () => {
     localStorage.clear();
     window.location.href = "/login";
   };
+
+  const designationOptions = [
+    "Associate Software Engineer",
+    "Senior Software Engineer",
+    "Principal Architect",
+    "Senior Principal Architect",
+    "Intern",
+    "Trainee Analyst",
+  ];
 
   return (
     <div
@@ -255,13 +262,17 @@ const EmployeeManagement = () => {
                   />
 
                   <label>Designation</label>
-                  <input
-                    type="text"
+                  <select
                     name="designation"
-                    value="Employee"
+                    value={newEmployee.designation}
                     onChange={handleInputChange}
-                    disabled
-                  />
+                  >
+                    {designationOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
 
                   <label>Email</label>
                   <input
@@ -314,12 +325,17 @@ const EmployeeManagement = () => {
                   />
 
                   <label>Designation</label>
-                  <input
-                    type="text"
+                  <select
                     name="designation"
                     value={editingEmployee.designation}
                     onChange={handleEditInputChange}
-                  />
+                  >
+                    {designationOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
 
                   <label>Email</label>
                   <input
