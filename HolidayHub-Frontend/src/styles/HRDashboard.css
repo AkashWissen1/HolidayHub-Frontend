@@ -1,7 +1,10 @@
 .dashboard-container {
   min-height: 100vh;
   background-color: #f8f9fc;
+  
 }
+
+
 
 .dashboard-header {
   position: fixed;
@@ -21,12 +24,14 @@
 .dashboard-main {
   display: flex;
   padding-top: 70px; /* Height of the header */
+ 
 }
 
 .dashboard-content {
   flex-grow: 1;
   padding: 2rem;
   margin-left: 250px; /* Width of the sidebar */
+  
 }
 
 .logo-container {

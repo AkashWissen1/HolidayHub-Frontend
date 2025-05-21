@@ -2,18 +2,74 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 90vh; /* Changed from 100vh to 90vh */
-  background-color: #f8f9fa;
+  min-height: 100vh; 
   padding: 1rem;
+  animation: bgtrans 5s linear infinite;
+  background-image: url('../assets/bgimg3.jpg'); 
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
 }
+
+@keyframes bgtrans {
+  
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+ .bub {
+  width: 130px;
+  height: 130px;
+  border: 1px solid white;
+  box-shadow: inset 5px -5px 10px white;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(2px);
+  position: absolute;
+  bottom: -100px;
+  animation: bubble 3s ease-in infinite;
+}
+
+
+.bub.a { left: 10%; animation: bubble2 2s ease-in 1s infinite; }
+.bub.b { left: 20%; animation: bubble 1.5s ease-in 1.4s infinite; }
+.bub.c { left: 28%; animation: bubble 5s ease-in 3.8s infinite; }
+.bub.d { left: 40%; animation: bubble 1.8s ease-in 0.5s infinite; }
+.bub.e { left: 75%; animation: bubble2 2.3s ease-in 2.5s infinite; }
+.bub.f { left: 90%; animation: bubble 2.5s ease-in 3s infinite; }
+.bub.g { left: 60%; animation: bubble 2.2s ease-in 2s infinite; }
+.bub.k { left: 50%; animation: bubble 1.6s ease-in 2s infinite; }
+.bub.i { left: 65%; animation: bubble2 1.8s ease-in 2.1s infinite; }
+.bub.j { left: 3%;  animation: bubble 2s ease-in 1.5s infinite; }
+.bub.h { left: 35%; animation: bubble2 3s ease-in infinite; }
+
+
+@keyframes bubble {
+  0%   { opacity: 0; transform: translateY(0); }
+  10%, 93% { opacity: 1; }
+  100% { transform: translate(90px, -700px); opacity: 0; }
+}
+
+
+@keyframes bubble2 {
+  0%   { opacity: 0; transform: translateY(0); }
+  10%, 93% { opacity: 1; }
+  100% { transform: translate(-90px, -700px); opacity: 0; }
+}
+
 
 .login-card {
   background: white;
-  padding: 2rem; /* Reduced from 2.5rem to 2rem */
+  padding: 2rem; 
   border-radius: 15px;
+  border: 2px solid #7a00ff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
+  backdrop-filter: blur(9px);
+  overflow: hidden;
 }
 
 .login-card h2 {
