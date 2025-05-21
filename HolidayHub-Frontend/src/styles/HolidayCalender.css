@@ -376,3 +376,23 @@
         margin: 10px 0;
     }
 }
+
+
+.pdf {
+  background-color: #2d1c4e;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pdf:hover {
+  background-color: #4b3c6e; /* lighter than original */
+}
