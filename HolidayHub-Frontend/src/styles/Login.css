@@ -1,75 +1,78 @@
+@keyframes animateCloud {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes floatSideToSide {
+  0% {
+    transform: translateX(-2vw);
+  }
+  50% {
+    transform: translateX(2vw);
+  }
+  100% {
+    transform: translateX(-2vw);
+  }
+}
+
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; 
+  min-height: 100vh;
   padding: 1rem;
-  animation: bgtrans 5s linear infinite;
-  background-image: url('../assets/bgimg3.jpg'); 
-  background-position: center;
-  background-size: cover;
+  background: linear-gradient(135deg, #a1c4fd 0%, #f5f5f7 100%);
   position: relative;
   overflow: hidden;
 }
 
-@keyframes bgtrans {
-  
-  100% {
-    filter: hue-rotate(360deg);
-  }
-}
-
- .bub {
-  width: 130px;
-  height: 130px;
-  border: 1px solid white;
-  box-shadow: inset 5px -5px 10px white;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(2px);
+.cloud {
   position: absolute;
-  bottom: -100px;
-  animation: bubble 3s ease-in infinite;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 110vw;
+  height: auto;
+  z-index: 0;
+  display: flex;
+  margin-left: -5vw;
+  animation: floatSideToSide 20s ease-in-out infinite;
 }
 
-
-.bub.a { left: 10%; animation: bubble2 2s ease-in 1s infinite; }
-.bub.b { left: 20%; animation: bubble 1.5s ease-in 1.4s infinite; }
-.bub.c { left: 28%; animation: bubble 5s ease-in 3.8s infinite; }
-.bub.d { left: 40%; animation: bubble 1.8s ease-in 0.5s infinite; }
-.bub.e { left: 75%; animation: bubble2 2.3s ease-in 2.5s infinite; }
-.bub.f { left: 90%; animation: bubble 2.5s ease-in 3s infinite; }
-.bub.g { left: 60%; animation: bubble 2.2s ease-in 2s infinite; }
-.bub.k { left: 50%; animation: bubble 1.6s ease-in 2s infinite; }
-.bub.i { left: 65%; animation: bubble2 1.8s ease-in 2.1s infinite; }
-.bub.j { left: 3%;  animation: bubble 2s ease-in 1.5s infinite; }
-.bub.h { left: 35%; animation: bubble2 3s ease-in infinite; }
-
-
-@keyframes bubble {
-  0%   { opacity: 0; transform: translateY(0); }
-  10%, 93% { opacity: 1; }
-  100% { transform: translate(90px, -700px); opacity: 0; }
+.cloud img {
+  width: 110%;
+  height: auto;
+  opacity: 0.25;
 }
 
-
-@keyframes bubble2 {
-  0%   { opacity: 0; transform: translateY(0); }
-  10%, 93% { opacity: 1; }
-  100% { transform: translate(-90px, -700px); opacity: 0; }
+.cloud:nth-child(1) { 
+  left: -5%;
+  animation-duration: 35s; 
 }
 
+.cloud:nth-child(2) { 
+  left: 60%;
+  animation-delay: 0s; 
+  animation-duration: 35s; 
+}
 
 .login-card {
-  background: white;
+  background: rgba(255, 255, 255, 0.85);
   padding: 2rem; 
   border-radius: 15px;
-  border: 2px solid #7a00ff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
-  backdrop-filter: blur(9px);
-  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 2;
+  margin-bottom: 50px;
+  position: relative;
 }
 
 .login-card h2 {
